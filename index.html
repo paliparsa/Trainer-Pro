@@ -116,7 +116,7 @@
             // App States
             const [activeTab, setActiveTab] = useState('planner');
             const [startDate, setStartDate] = useState('');
-            const [exams, setExams] = useState([]); // شروع با آرایه خالی (پروژه‌های کاربر)
+            const [exams, setExams] = useState([]);
             const [records, setRecords] = useState({});
             const [skipped, setSkipped] = useState([]);
             const [dark, setDark] = useState(false);
@@ -189,14 +189,23 @@
                         const docSnap = await getDoc(docRef);
                         if (docSnap.exists()) {
                             const data = docSnap.data();
-                            if (data.startDate) setStartDate(data.startDate);
-                            if (data.exams) setExams(data.exams);
-                            if (data.records) setRecords(data.records);
-                            if (data.skipped) setSkipped(data.skipped);
-                            if (data.missedStreak !== undefined) setMissedStreak(data.missedStreak);
-                            if (data.rebalance) setRebalance(data.rebalance);
-                            if (data.dark !== undefined) setDark(data.dark);
-                            if (data.hasSeenOnboarding !== undefined) setHasSeenOnboarding(data.hasSeenOnboarding);
+                            setStartDate(data.startDate || '');
+                            setExams(data.exams || []);
+                            setRecords(data.records || {});
+                            setSkipped(data.skipped || []);
+                            setMissedStreak(data.missedStreak || 0);
+                            setRebalance(data.rebalance || { active: false, until: null, nearestExamId: null });
+                            setDark(data.dark || false);
+                            setHasSeenOnboarding(data.hasSeenOnboarding || false);
+                        } else {
+                            // ریست کامل اگر کاربر جدید است
+                            setStartDate('');
+                            setExams([]);
+                            setRecords({});
+                            setSkipped([]);
+                            setMissedStreak(0);
+                            setRebalance({ active: false, until: null, nearestExamId: null });
+                            setHasSeenOnboarding(false);
                         }
                         setIsDbReady(true);
                     } catch (e) {
@@ -279,6 +288,17 @@
                 setIsDbReady(false);
                 setShowAuthForm(false);
                 setActiveTab('planner');
+                
+                // پاکسازی کامل حافظه داخلی هنگام خروج کاربر
+                setStartDate('');
+                setExams([]);
+                setRecords({});
+                setSkipped([]);
+                setMissedStreak(0);
+                setRebalance({ active: false, until: null, nearestExamId: null });
+                setHasSeenOnboarding(false);
+                setUsername('');
+                setPassword('');
             };
 
             const toggleTimer = (t) => {
@@ -315,10 +335,14 @@
             const completeOnboarding = () => {
                 triggerHaptic();
                 setHasSeenOnboarding(true);
-                setActiveTab('settings'); // هدايت به تنظيمات برای انتخاب تاریخ شروع و هدف
+                setActiveTab('settings');
             };
 
-            // محاسبات زمان‌بندی (هوشمند شده برای دیتای خالی)
+            const handleUpdateSlide = (exId, subId, slides) => {
+                setExams(prev => prev.map(ex => ex.id === exId ? { ...ex, subjects: ex.subjects.map(s => s.id === subId ? { ...s, slides: parseInt(slides) || 0 } : s) } : ex));
+            };
+
+            // محاسبات زمان‌بندی
             const schedule = useMemo(() => {
                 if (!startDate || exams.length === 0) return []; 
                 const plan = [];
@@ -444,7 +468,7 @@
 
 
             // ==========================================
-            // صفحات وضعیت (لودینگ، ارور و غیره)
+            // صفحات وضعیت
             // ==========================================
             if (networkError) {
                 return (
@@ -469,7 +493,7 @@
             }
 
             // ==========================================
-            // صفحات قبل از ورود (Welcome & Login)
+            // صفحات قبل از ورود
             // ==========================================
             if (!user) {
                 if (!showAuthForm) {
@@ -549,7 +573,7 @@
             }
 
             // ==========================================
-            // صفحه آنبوردینگ (بعد از ورود برای بار اول)
+            // صفحه آنبوردینگ
             // ==========================================
             if (user && isDbReady && !hasSeenOnboarding) {
                 return (
@@ -724,7 +748,7 @@
                                     </div>
                                 </div>
 
-                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت اهداف و آزمون‌ها</h2>
+                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت اهداف و پروژه‌ها</h2>
                                 {exams.length === 0 ? (
                                     <div className="text-center py-8 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">شما هنوز هیچ هدفی ثبت نکرده‌اید.</p>
