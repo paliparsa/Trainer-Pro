@@ -8,14 +8,12 @@
     <meta name="theme-color" content="#4f46e5">
     
     <script>
-        // آیکون برنامه
-        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
+        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
         const link = document.createElement('link');
         link.rel = 'icon'; link.href = APP_ICON_BASE64;
         document.head.appendChild(link);
     </script>
 
-    <!-- لود کردن فایربیس به صورت ایمن و مستقیم -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -27,7 +25,6 @@
         };
     </script>
 
-    <!-- Tailwind & React -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { darkBg: '#0f172a', darkCard: '#1e293b' } } } }
@@ -44,24 +41,17 @@
         .progress-bar-stripes { background-image: linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent); background-size: 1rem 1rem; }
         .skipped-pattern { background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px); }
         .dark .skipped-pattern { background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.05) 5px, rgba(255,255,255,0.05) 10px); }
-        .modal-animate { animation: modalIn 0.2s ease-out; }
-        @keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .fade-in { animation: fadeIn 0.3s ease-in; }
+        .modal-animate { animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes modalIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-darkBg transition-colors duration-300">
     
-    <!-- سیستم جلوگیری از صفحه سفید -->
     <script>
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            document.body.innerHTML = `
-                <div style="padding: 20px; color: #b91c1c; font-family: Tahoma; direction: ltr; text-align: left; background: #fee2e2; min-height: 100vh;">
-                    <h3 style="font-weight: bold; margin-bottom: 10px;">JavaScript Crash Detected!</h3>
-                    <p style="margin-bottom: 5px;"><b>Error:</b> ${msg}</p>
-                    <p style="font-size: 12px; color: #7f1d1d;">لطفا از این صفحه عکس بگیرید.</p>
-                </div>`;
-            return false;
+        window.onerror = function(msg) {
+            document.body.innerHTML = `<div style="padding:20px; color:#b91c1c; font-family:Tahoma; direction:ltr; background:#fee2e2; min-height:100vh;"><h3>JS Error</h3><p>${msg}</p></div>`;
         };
     </script>
 
@@ -74,7 +64,7 @@
     </div>
 
     <script type="text/babel">
-        const { useState, useMemo, useEffect, useRef } = React;
+        const { useState, useMemo, useEffect } = React;
 
         const Icons = {
             Dashboard: () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>,
@@ -86,18 +76,18 @@
             Plus: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
             Edit: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
             Trash: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>,
-            Skip: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 3v18"/><path d="m19 19-7-7 7-7"/></svg>,
+            Skip: ({size=14}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 3v18"/><path d="m19 19-7-7 7-7"/></svg>,
             Undo: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>,
-            Flame: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
+            Flame: ({size=20, className=""}) => <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>,
             Timer: ({size=14}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
             Play: ({size=14}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>,
             Pause: ({size=14}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>,
             Stop: ({size=14}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="6" width="12" height="12"/></svg>,
             Warning: ({size=22, className=""}) => <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>,
             Chart: () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
-            Star: ({size=10}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
             User: ({size=20}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
-            LogOut: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            LogOut: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
+            Check: ({size=20, className=""}) => <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         };
 
         const INITIAL_EXAMS = [
@@ -115,19 +105,21 @@
         };
 
         function App() {
-            // === Firebase & System State ===
-            const [firebaseReady, setFirebaseReady] = useState(false);
+            const [networkError, setNetworkError] = useState(false);
             const [detailedError, setDetailedError] = useState(''); 
             const [authLoading, setAuthLoading] = useState(true);
             const [user, setUser] = useState(null);
             const [isDbReady, setIsDbReady] = useState(false);
             
+            // UI States
+            const [showAuthForm, setShowAuthForm] = useState(false);
+            const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
             const [authMode, setAuthMode] = useState('login'); 
             const [username, setUsername] = useState('');
             const [password, setPassword] = useState('');
             const [authError, setAuthError] = useState('');
 
-            // === App State ===
+            // App States
             const [activeTab, setActiveTab] = useState('planner');
             const [startDate, setStartDate] = useState('');
             const [exams, setExams] = useState(INITIAL_EXAMS);
@@ -145,27 +137,25 @@
             const [val1, setVal1] = useState('');
             const [val2, setVal2] = useState('');
 
-            // 1. Wait for window.FirebaseAPI to be loaded by the script tag
+            // 1. Initialize Firebase
             useEffect(() => {
                 let attempts = 0;
                 const timer = setInterval(() => {
                     attempts++;
                     if (window.FirebaseAPI) {
                         clearInterval(timer);
-                        setFirebaseReady(true);
+                        initFirebase();
                     }
-                    if (attempts > 50) { // Timeout after 5 seconds
+                    if (attempts > 50) {
                         clearInterval(timer);
-                        setDetailedError("فایربیس در این شبکه بارگذاری نشد (احتمالاً به دلیل تحریم یا عدم دسترسی اینترنت).");
+                        setDetailedError("فایربیس بارگذاری نشد (احتمالاً فیلترشکن خاموش است).");
+                        setNetworkError(true);
                     }
                 }, 100);
                 return () => clearInterval(timer);
             }, []);
 
-            // 2. Initialize Firebase once ready
-            useEffect(() => {
-                if (!firebaseReady || !window.FirebaseAPI) return;
-
+            const initFirebase = async () => {
                 const config = {
                     apiKey: "AIzaSyDsbVjGnWPutR_av7MyaLRuD0Vs4mDdsQA",
                     authDomain: "train-67d6c.firebaseapp.com",
@@ -178,46 +168,29 @@
 
                 try {
                     const { initializeApp, getAuth, getFirestore, onAuthStateChanged } = window.FirebaseAPI;
-                    
                     let app;
-                    // Prevent double initialization errors in React
-                    try {
-                        app = initializeApp(config);
-                    } catch (e) {
-                        if(e.code === 'app/duplicate-app') app = window.FirebaseAPI.getApp();
-                        else throw e;
-                    }
+                    try { app = initializeApp(config); } catch (e) { app = window.FirebaseAPI.getApp(); }
 
                     const auth = getAuth(app);
-                    const db = getFirestore(app);
-
-                    window.db = db;
+                    window.db = getFirestore(app);
                     window.auth = auth;
 
                     onAuthStateChanged(auth, (u) => {
-                        if (u) {
-                            setUser(u);
-                        } else {
-                            setUser(null);
-                        }
+                        setUser(u);
                         setAuthLoading(false);
                     });
-
                 } catch (error) {
-                    console.error("Firebase Init Error:", error);
+                    setNetworkError(true);
                     setDetailedError(error.message);
                 }
-            }, [firebaseReady]);
+            };
 
-            // 3. Load User Data
+            // 2. Load User Data
             useEffect(() => {
                 if (!user || !window.db || !window.FirebaseAPI) return;
-                
                 const loadData = async () => {
                     const { doc, getDoc } = window.FirebaseAPI;
-                    // مسیر ثابت برای جلوگیری از ارور
                     const docRef = doc(window.db, 'users', user.uid);
-                    
                     try {
                         const docSnap = await getDoc(docRef);
                         if (docSnap.exists()) {
@@ -229,57 +202,48 @@
                             if (data.missedStreak !== undefined) setMissedStreak(data.missedStreak);
                             if (data.rebalance) setRebalance(data.rebalance);
                             if (data.dark !== undefined) setDark(data.dark);
+                            if (data.hasSeenOnboarding !== undefined) setHasSeenOnboarding(data.hasSeenOnboarding);
                         }
                         setIsDbReady(true);
                     } catch (e) {
-                        console.error("Firestore Error:", e);
-                        if (e.code === 'permission-denied') {
-                            setDetailedError("دسترسی دیتابیس بسته است. لطفا در سایت فایربیس، بخش Firestore Rules، گزینه read/write را آزاد کنید.");
-                        } else {
-                            setDetailedError("خطا در ارتباط با دیتابیس: " + e.message);
-                        }
+                        setNetworkError(true);
+                        setDetailedError(e.code === 'permission-denied' ? "دسترسی دیتابیس بسته است. لطفا در پنل فایربیس Rules را آزاد کنید." : e.message);
                     }
                 };
                 loadData();
             }, [user]);
 
-            // 4. Save User Data
+            // 3. Save User Data
             useEffect(() => {
                 if (!isDbReady || !user || !window.db || !window.FirebaseAPI) return;
-                
                 const saveData = async () => {
                     const { doc, setDoc } = window.FirebaseAPI;
                     const docRef = doc(window.db, 'users', user.uid);
                     try {
                         await setDoc(docRef, {
-                            startDate, exams, records, skipped, missedStreak, rebalance, dark,
+                            startDate, exams, records, skipped, missedStreak, rebalance, dark, hasSeenOnboarding,
                             lastUpdated: new Date().toISOString()
                         }, { merge: true });
                     } catch (err) {
-                        console.error("Save Error:", err);
                         if (err.code === 'permission-denied') {
-                            setDetailedError("دسترسی ذخیره اطلاعات در دیتابیس مسدود است.");
+                            setNetworkError(true); setDetailedError("اجازه ذخیره در فایربیس ندارید.");
                         }
                     }
                 };
-                
                 const debounceTimer = setTimeout(saveData, 500);
                 return () => clearTimeout(debounceTimer);
-                
-            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, isDbReady, user]);
+            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, hasSeenOnboarding, isDbReady, user]);
 
             useEffect(() => {
                 if (dark) document.documentElement.classList.add('dark');
                 else document.documentElement.classList.remove('dark');
             }, [dark]);
 
-            // === Timer Engine ===
+            // === Timer ===
             useEffect(() => {
                 let interval = null;
                 if (activeTimer.isRunning && activeTimer.timeLeft > 0) {
-                    interval = setInterval(() => {
-                        setActiveTimer(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
-                    }, 1000);
+                    interval = setInterval(() => { setActiveTimer(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 })); }, 1000);
                 } else if (activeTimer.isRunning && activeTimer.timeLeft === 0) {
                     if (navigator.vibrate) navigator.vibrate([100, 100, 100, 100, 300]);
                     setActiveTimer(prev => ({ ...prev, isRunning: false }));
@@ -298,10 +262,9 @@
             };
 
             const handleAuthSubmit = async (e) => {
-                e.preventDefault();
-                setAuthError('');
-                if (username.length < 3) { setAuthError('نام کاربری باید حداقل ۳ حرف باشد'); return; }
-                if (password.length < 6) { setAuthError('رمز عبور باید حداقل ۶ حرف باشد'); return; }
+                e.preventDefault(); setAuthError('');
+                if (username.length < 3) return setAuthError('نام کاربری حداقل ۳ حرف');
+                if (password.length < 6) return setAuthError('رمز عبور حداقل ۶ حرف');
 
                 const { signInWithEmailAndPassword, createUserWithEmailAndPassword } = window.FirebaseAPI;
                 const email = username.trim().toLowerCase() + "@dental.local"; 
@@ -310,10 +273,8 @@
                     if (authMode === 'login') await signInWithEmailAndPassword(window.auth, email, password);
                     else await createUserWithEmailAndPassword(window.auth, email, password);
                 } catch (err) {
-                    console.error("Auth Error:", err);
-                    if (err.code === 'auth/email-already-in-use') setAuthError('این نام کاربری قبلاً ثبت شده است!');
+                    if (err.code === 'auth/email-already-in-use') setAuthError('این نام کاربری قبلاً ثبت شده!');
                     else if (err.code === 'auth/invalid-credential') setAuthError('نام کاربری یا رمز عبور اشتباه است!');
-                    else if (err.code === 'auth/operation-not-allowed') setAuthError('سیستم ورود در فایربیس فعال نیست! (در پنل فایربیس Email/Password را فعال کنید)');
                     else setAuthError('خطای ورود: ' + err.message);
                 }
             };
@@ -322,11 +283,8 @@
                 triggerHaptic();
                 await window.FirebaseAPI.signOut(window.auth);
                 setIsDbReady(false);
+                setShowAuthForm(false);
                 setActiveTab('planner');
-            };
-
-            const handleUpdateSlide = (exId, subId, slides) => {
-                setExams(prev => prev.map(ex => ex.id === exId ? { ...ex, subjects: ex.subjects.map(s => s.id === subId ? { ...s, slides: parseInt(slides) || 0 } : s) } : ex));
             };
 
             const toggleTimer = (t) => {
@@ -347,9 +305,7 @@
                     setMissedStreak(newStreak);
                     if (newStreak >= 3) {
                         const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
-                        if (sortedExams.length > 1) {
-                            setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
-                        }
+                        if (sortedExams.length > 1) setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
                         setMissedStreak(0);
                     }
                 } else if (stat === 'done') {
@@ -362,7 +318,13 @@
                 setRecords(prev => { const n = { ...prev }; delete n[key]; return n; });
             };
 
-            // Schedule Calculation
+            const completeOnboarding = () => {
+                triggerHaptic();
+                setHasSeenOnboarding(true);
+                setActiveTab('settings'); // هدايت به تنظيمات برای انتخاب تاریخ شروع
+            };
+
+            // محاسبات زمان‌بندی
             const schedule = useMemo(() => {
                 if (!startDate) return []; 
                 const plan = [];
@@ -406,9 +368,14 @@
 
                             const amt = rec?.isCustom ? rec.amount : Math.min(load, left[sub.id][phase]);
 
-                            if (rec?.status === 'done' || (!rec?.isCustom && amt > 0) || (rec?.isCustom && (rec.amount > 0 || rec.status === 'missed'))) {
+                            // شرط جدید: اگر مبحث در آن روز اسکیپ شده باشد، باز هم رندر می‌شود اما از موجودی اسلایدها کم نمی‌شود.
+                            if (rec?.status === 'done' || rec?.status === 'skipped' || (!rec?.isCustom && amt > 0) || (rec?.isCustom && (rec.amount > 0 || rec.status === 'missed'))) {
                                 tasks.push({ key, exName: ex.name, subName: sub.name, phase, amt, status: rec?.status || 'pending', isCustom: rec?.isCustom });
-                                if (rec?.status === 'done' || (!rec?.status && amt > 0)) left[sub.id][phase] -= amt;
+                                
+                                // اگر اسکیپ شده باشد، از left کم نمی‌کنیم تا به روزهای بعد منتقل شود
+                                if (rec?.status === 'done' || (!rec?.status && amt > 0)) {
+                                    left[sub.id][phase] -= amt;
+                                }
                             }
                         });
                     });
@@ -438,11 +405,12 @@
                     const dStr = getLocalISODate(curr);
                     const dailyExams = exams.filter(e => e.date === dStr);
                     const sch = scheduleMap[dStr];
+                    // تعداد کل اسلایدهای رندر شده در آن روز (بدون احتساب اسکیپ شده‌ها)
+                    const totalSlides = sch ? sch.tasks.reduce((acc, t) => acc + (t.status !== 'skipped' ? t.amt : 0), 0) : 0;
                     
                     grid.push({
                         date: new Date(curr), dStr, dailyExams, isSkipped: skipped.includes(dStr), 
-                        totalSlides: sch ? sch.tasks.reduce((acc, t) => acc + t.amt, 0) : 0,
-                        isToday: dStr === todayISO, outOfBounds: curr < sDate || curr > mDate,
+                        totalSlides, isToday: dStr === todayISO, outOfBounds: curr < sDate || curr > mDate,
                         internalDay: sch?.internalDay || null
                     });
                     curr.setDate(curr.getDate() + 1);
@@ -475,42 +443,86 @@
 
 
             // ==========================================
-            // صفحات خطا و ارتباط با سرور
+            // صفحات وضعیت (لودینگ، ارور و غیره)
             // ==========================================
-
-            if (detailedError) {
+            if (networkError) {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 text-rose-800" dir="rtl">
                         <Icons.Warning size={64} className="text-rose-500 mb-6" />
-                        <h2 className="text-xl font-black mb-4 text-center">مشکل در ارتباط با سرور</h2>
-                        <div className="bg-rose-100 p-4 rounded-xl text-sm mb-6 text-rose-900 border border-rose-200" dir="ltr" style={{maxWidth: '100%', wordBreak: 'break-all'}}>
-                            <b>Error:</b><br/>{detailedError}
+                        <h2 className="text-xl font-black mb-4 text-center">خطا در ارتباط با فایربیس</h2>
+                        <div className="bg-rose-100 p-4 rounded-xl text-sm mb-6 text-rose-900 border border-rose-200 w-full" dir="ltr" style={{wordBreak: 'break-all'}}>
+                            <b>Error Details:</b><br/>{detailedError}
                         </div>
                         <button onClick={()=>window.location.reload()} className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold shadow-lg shadow-rose-500/30">تلاش مجدد</button>
                     </div>
                 );
             }
 
-            if (authLoading || (user && !isDbReady)) {
+            if (authLoading) {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 text-indigo-600 dark:text-indigo-400">
                         <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
-                        <h2 className="font-bold">در حال اتصال به دیتابیس...</h2>
+                        <h2 className="font-bold">در حال برقراری ارتباط...</h2>
                     </div>
                 );
             }
 
+            // ==========================================
+            // صفحات قبل از ورود (Welcome & Login)
+            // ==========================================
             if (!user) {
+                if (!showAuthForm) {
+                    return (
+                        <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+                            <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                            <div className="absolute bottom-[-10%] right-[-10%] w-64 h-64 bg-rose-500/20 rounded-full blur-3xl"></div>
+                            
+                            <div className="w-full max-w-sm space-y-8 text-center z-10 fade-in">
+                                <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-indigo-500/40">
+                                    <Icons.Flame size={48} className="text-white" />
+                                </div>
+                                
+                                <div>
+                                    <h1 className="text-3xl font-black text-slate-800 dark:text-white mb-3">مربی من</h1>
+                                    <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">
+                                        اولین برنامه‌ریز هوشمند دندانپزشکی، همراه با تقسیم خودکار مباحث و مرورهای منظم.
+                                    </p>
+                                </div>
+
+                                <div className="space-y-4 text-right bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 rounded-3xl shadow-sm border border-white dark:border-slate-700">
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-2.5 bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 rounded-xl"><Icons.Planner /></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">برنامه‌ریزی خودکار</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">تقسیم هوشمند اسلایدها تا روز امتحان</p></div>
+                                    </div>
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-2.5 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 rounded-xl"><Icons.Timer size={20}/></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">تکنیک پومودورو</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">مدیریت زمان مطالعه با تایمر داخلی</p></div>
+                                    </div>
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-2.5 bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 rounded-xl"><Icons.Chart /></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">همگام‌سازی ابری</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">ذخیره امن اطلاعات در فضای ابری</p></div>
+                                    </div>
+                                </div>
+
+                                <button onClick={() => setShowAuthForm(true)} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 transition-all transform hover:scale-[1.02]">
+                                    شروع کنید (ورود / ثبت‌نام)
+                                </button>
+                            </div>
+                        </div>
+                    );
+                }
+
+                // فرم ورود و ثبت نام
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900">
-                        <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl w-full max-w-sm modal-animate">
-                            <div className="flex justify-center mb-6 text-indigo-600 dark:text-indigo-400">
+                        <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl w-full max-w-sm modal-animate relative">
+                            <button onClick={() => setShowAuthForm(false)} className="absolute top-4 left-4 p-2 text-slate-400 hover:text-slate-600"><Icons.Undo /></button>
+                            <div className="flex justify-center mb-6 text-indigo-600 dark:text-indigo-400 mt-2">
                                 <Icons.User size={48} />
                             </div>
                             <h2 className="text-2xl font-black text-center mb-8 text-slate-800 dark:text-white">
                                 {authMode === 'login' ? 'ورود به حساب' : 'ثبت نام جدید'}
                             </h2>
-                            
                             <form onSubmit={handleAuthSubmit} className="space-y-4">
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 mb-2">نام کاربری</label>
@@ -520,21 +532,67 @@
                                     <label className="block text-xs font-bold text-slate-500 mb-2">رمز عبور (حداقل ۶ حرف)</label>
                                     <input type="password" dir="ltr" value={password} onChange={e=>setPassword(e.target.value)} className="w-full p-4 bg-slate-100 dark:bg-slate-700 rounded-2xl outline-none font-bold text-center dark:text-white focus:ring-2 focus:ring-indigo-500" required />
                                 </div>
-                                
                                 {authError && <div className="bg-rose-100 text-rose-600 p-3 rounded-xl text-xs font-bold text-center animate-bounce leading-relaxed">{authError}</div>}
-                                
                                 <button type="submit" className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold mt-4 shadow-lg shadow-indigo-500/30 transition-all">
-                                    {authMode === 'login' ? 'ورود' : 'ثبت نام و ذخیره'}
+                                    {authMode === 'login' ? 'ورود به برنامه' : 'ثبت نام و ساخت حساب'}
                                 </button>
                             </form>
-                            
                             <div className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-                                {authMode === 'login' ? 'حساب کاربری ندارید؟ ' : 'قبلاً ثبت نام کرده‌اید؟ '}
+                                {authMode === 'login' ? 'حساب کاربری ندارید؟ ' : 'قبلاً حساب ساخته‌اید؟ '}
                                 <button onClick={() => {setAuthMode(authMode === 'login' ? 'register' : 'login'); setAuthError('');}} className="text-indigo-600 dark:text-indigo-400 font-black">
                                     {authMode === 'login' ? 'ثبت نام کنید' : 'وارد شوید'}
                                 </button>
                             </div>
                         </div>
+                    </div>
+                );
+            }
+
+            // ==========================================
+            // صفحه آنبوردینگ (بعد از ورود برای بار اول)
+            // ==========================================
+            if (user && isDbReady && !hasSeenOnboarding) {
+                return (
+                    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center p-6 fade-in">
+                        <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden text-center border border-slate-100 dark:border-slate-700">
+                            <div className="bg-indigo-600 p-8 text-white relative">
+                                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                                    <Icons.Check size={32} />
+                                </div>
+                                <h2 className="text-2xl font-black mb-1">ورود موفقیت‌آمیز!</h2>
+                                <p className="text-xs opacity-80">به مربی هوشمند خوش آمدید</p>
+                            </div>
+                            
+                            <div className="p-8 space-y-6 text-right">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Settings size={18}/></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">قدم اول: تعیین تاریخ</p><p className="text-[10px] text-slate-500 dark:text-slate-400">اول از همه به بخش تنظیمات بروید و تاریخ شروع مطالعه را مشخص کنید.</p></div>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Planner size={18}/></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">برنامه‌ریزی روزانه</p><p className="text-[10px] text-slate-500 dark:text-slate-400">سیستم به صورت خودکار برنامه هر روز را برای شما می‌چیند.</p></div>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Calendar size={18}/></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">پیگیری تقویم</p><p className="text-[10px] text-slate-500 dark:text-slate-400">تعداد اسلایدهای هر روز را در تقویم رصد کنید.</p></div>
+                                </div>
+                            </div>
+
+                            <div className="p-6 pt-0">
+                                <button onClick={completeOnboarding} className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30">
+                                    متوجه شدم، بزن بریم!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (!isDbReady) {
+                return (
+                    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 text-indigo-600 dark:text-indigo-400">
+                        <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+                        <h2 className="font-bold text-sm">دریافت اطلاعات کاربر...</h2>
                     </div>
                 );
             }
@@ -568,7 +626,7 @@
                                 {modal.type === 'edit' && (
                                     <>
                                         <h3 className="text-xl font-bold mb-2 dark:text-white">تغییر حجم امروز</h3>
-                                        <p className="text-xs text-slate-500 mb-4">برای حذف از امروز عدد 0 را بزنید.</p>
+                                        <p className="text-xs text-slate-500 mb-4">برای تغییر حجم برنامه‌ریزی شده مقدار جدید را وارد کنید.</p>
                                         <input type="number" value={val1} onChange={e => setVal1(e.target.value)} className="w-full p-4 mb-6 bg-indigo-50 dark:bg-slate-900 rounded-2xl text-center text-3xl font-black text-indigo-600 outline-none" />
                                         <div className="flex gap-2">
                                             <button onClick={() => setModal({ open: false })} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300">لغو</button>
@@ -666,8 +724,9 @@
                         {activeTab === 'planner' && (
                             <div className="space-y-6 fade-in">
                                 {!startDate && (
-                                     <div className="text-center py-10">
-                                         <p className="text-slate-500 dark:text-slate-400 mb-4">برای مشاهده برنامه‌ریزی، ابتدا از بخش تنظیمات تاریخ شروع مطالعه را تعیین کنید.</p>
+                                     <div className="text-center py-10 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                                         <Icons.Planner size={40} className="mx-auto text-slate-300 dark:text-slate-600 mb-4"/>
+                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">برای مشاهده برنامه‌ریزی، ابتدا از بخش تنظیمات تاریخ شروع مطالعه را تعیین کنید.</p>
                                      </div>
                                 )}
 
@@ -678,37 +737,50 @@
                                                 <h4 dir="ltr" className="font-black text-sm dark:text-white tracking-wide">{formatDate(day.date)}</h4>
                                                 <span className="bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 text-[10px] px-2 py-0.5 rounded-md font-bold">روز {day.internalDay}</span>
                                             </div>
-                                            <button onClick={() => setModal({open:true, type:'confirm', data:{msg:'آیا امروز استراحت می‌کنید؟', fn:()=>setSkipped(p=>[...p, day.dStr])}})} className="p-2 text-rose-500"><Icons.Skip /></button>
+                                            <button onClick={() => setModal({open:true, type:'confirm', data:{msg:'آیا کل امروز را استراحت می‌کنید؟ (قابل برگشت نیست)', fn:()=>setSkipped(p=>[...p, day.dStr])}})} className="p-1.5 text-rose-500 bg-rose-50 dark:bg-rose-900/20 rounded-lg hover:bg-rose-100 transition-colors" title="استراحت کل روز"><Icons.Skip size={16}/></button>
                                         </div>
                                         <div className="p-4 space-y-3">
                                             {day.tasks.length === 0 && <div className="text-center py-4 text-slate-400 dark:text-slate-500 text-sm font-bold">برنامه‌ای برای امروز نیست</div>}
                                             {day.tasks.map(t => (
-                                                <div key={t.key} className={`p-4 rounded-2xl border-2 flex flex-col gap-3 ${t.status === 'done' ? 'bg-emerald-50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30' : 'bg-slate-50 border-slate-100 dark:bg-slate-900/40 dark:border-slate-700'} ${activeTimer.key === t.key && activeTimer.isRunning ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/10 shadow-md' : ''}`}>
+                                                <div key={t.key} className={`p-4 rounded-2xl border-2 flex flex-col gap-3 transition-colors duration-300 
+                                                    ${t.status === 'done' ? 'bg-emerald-50 border-emerald-100 dark:bg-emerald-900/10 dark:border-emerald-900/30' : 
+                                                      t.status === 'skipped' ? 'bg-slate-100 border-slate-200 dark:bg-slate-800 dark:border-slate-700 opacity-60' :
+                                                      'bg-slate-50 border-slate-100 dark:bg-slate-900/40 dark:border-slate-700'} 
+                                                    ${activeTimer.key === t.key && activeTimer.isRunning ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/10 shadow-md' : ''}`}>
                                                     <div className="flex justify-between items-start">
                                                         <div>
-                                                            <h5 className={`font-bold text-xs dark:text-white ${t.status === 'done' && 'line-through opacity-50'}`}>{t.subName}</h5>
+                                                            <h5 className={`font-bold text-xs dark:text-white ${t.status === 'done' ? 'line-through opacity-50 text-emerald-700' : t.status === 'skipped' ? 'line-through text-slate-500' : ''}`}>{t.subName}</h5>
                                                             <p className="text-[10px] opacity-50 dark:text-slate-400 mt-1">{t.exName} • فاز {t.phase}</p>
                                                         </div>
                                                         <div className="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-1 rounded-lg border dark:border-slate-700 shadow-sm">
-                                                            <span className="text-xs font-black text-indigo-600 dark:text-indigo-400">{t.amt}</span><span className="text-[9px]">اسلاید</span>
-                                                            {t.status === 'pending' && <button onClick={() => {setVal1(t.amt); setModal({open:true, type:'edit', data:{key:t.key}});}} className="mr-1 opacity-30 dark:text-white"><Icons.Edit /></button>}
+                                                            <span className={`text-xs font-black ${t.status === 'skipped' ? 'text-slate-400' : 'text-indigo-600 dark:text-indigo-400'}`}>{t.amt}</span><span className="text-[9px] text-slate-500">اسلاید</span>
+                                                            {t.status === 'pending' && <button onClick={() => {setVal1(t.amt); setModal({open:true, type:'edit', data:{key:t.key}});}} className="mr-1 opacity-30 hover:opacity-100 dark:text-white transition-opacity"><Icons.Edit /></button>}
                                                         </div>
                                                     </div>
                                                     {t.status === 'pending' ? (
                                                         <div className="flex gap-2">
-                                                            <button onClick={() => setTask(t.key, t.amt, 'done')} className="flex-1 py-2 bg-emerald-500 text-white rounded-xl text-[10px] font-bold">انجام شد</button>
-                                                            <button onClick={() => toggleTimer(t)} className={`flex items-center justify-center gap-1 flex-1 py-2 rounded-xl text-[11px] font-bold transition-colors ${activeTimer.key === t.key ? (activeTimer.isRunning ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400' : 'bg-orange-500 text-white') : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
+                                                            <button onClick={() => setTask(t.key, t.amt, 'done')} className="flex-[2] py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-[11px] font-bold shadow-sm shadow-emerald-500/20 transition-all">انجام شد</button>
+                                                            <button onClick={() => toggleTimer(t)} className={`flex items-center justify-center gap-1 flex-[2] py-2.5 rounded-xl text-[11px] font-bold transition-all shadow-sm ${activeTimer.key === t.key ? (activeTimer.isRunning ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 shadow-orange-500/20' : 'bg-orange-500 text-white shadow-orange-500/20') : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                                                                 {activeTimer.key === t.key ? (activeTimer.isRunning ? <Icons.Pause size={12} /> : <Icons.Play size={12} />) : <Icons.Timer size={12} />}
                                                                 <span dir="ltr" className="tracking-widest">{activeTimer.key === t.key ? formatTime(activeTimer.timeLeft) : '۲۵:۰۰'}</span>
                                                             </button>
-                                                            {activeTimer.key === t.key && (
-                                                                <button onClick={stopTimer} className="py-2 px-3 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl flex items-center justify-center transition-colors hover:bg-slate-300 dark:hover:bg-slate-600">
+                                                            {activeTimer.key === t.key ? (
+                                                                <button onClick={stopTimer} className="py-2.5 px-3 flex-1 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-xl flex items-center justify-center transition-colors">
                                                                     <Icons.Stop size={12} />
+                                                                </button>
+                                                            ) : (
+                                                                <button onClick={() => setTask(t.key, t.amt, 'skipped')} className="py-2.5 px-3 flex-[1] bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl flex items-center justify-center transition-colors" title="رد شدن از این مبحث (موکول به فردا)">
+                                                                    <Icons.Skip size={14} />
                                                                 </button>
                                                             )}
                                                         </div>
                                                     ) : (
-                                                        <div className="flex justify-between items-center pt-2 border-t dark:border-slate-700"><span className={`text-[9px] font-bold ${t.status === 'done' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{t.status === 'done' ? 'تکمیل شد' : 'نخوانده ماند'}</span><button onClick={() => undoTask(t.key)} className="text-indigo-600 dark:text-indigo-400"><Icons.Undo /></button></div>
+                                                        <div className="flex justify-between items-center pt-2 border-t dark:border-slate-700/50">
+                                                            <span className={`text-[10px] font-bold ${t.status === 'done' ? 'text-emerald-600 dark:text-emerald-400' : t.status === 'skipped' ? 'text-slate-500 dark:text-slate-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                                                                {t.status === 'done' ? 'تکمیل شد' : (t.status === 'skipped' ? 'رد شد (اسلایدها فردا پخش می‌شوند)' : 'نخوانده ماند')}
+                                                            </span>
+                                                            <button onClick={() => undoTask(t.key)} className="text-indigo-600 dark:text-indigo-400 p-1 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg hover:bg-indigo-100 transition-colors"><Icons.Undo /></button>
+                                                        </div>
                                                     )}
                                                 </div>
                                             ))}
@@ -735,19 +807,43 @@
                                             <div className="grid grid-cols-7 gap-1.5" dir="ltr">
                                                 {calendarGrid.map((day, idx) => {
                                                     let bgClass = "bg-slate-50 dark:bg-slate-900/40 text-slate-400";
-                                                    if (day.outOfBounds) bgClass = "bg-transparent text-slate-300 dark:text-slate-700 opacity-30";
-                                                    else if (day.isSkipped) bgClass = "skipped-pattern text-slate-400 border border-slate-200 dark:border-slate-700";
-                                                    else if (day.dailyExams.length > 0) bgClass = "bg-rose-500 text-white shadow-md shadow-rose-500/30";
-                                                    else if (day.totalSlides > 150) bgClass = "bg-orange-500 text-white shadow-sm shadow-orange-500/20";
-                                                    else if (day.totalSlides > 50) bgClass = "bg-indigo-500 text-white";
-                                                    else if (day.totalSlides > 0) bgClass = "bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300";
+                                                    let textClass = "text-slate-400";
+
+                                                    if (day.outOfBounds) {
+                                                        bgClass = "bg-transparent opacity-30";
+                                                        textClass = "text-slate-300 dark:text-slate-700";
+                                                    } else if (day.isSkipped) {
+                                                        bgClass = "skipped-pattern border border-slate-200 dark:border-slate-700";
+                                                        textClass = "text-slate-400";
+                                                    } else if (day.dailyExams.length > 0) {
+                                                        bgClass = "bg-rose-500 shadow-md shadow-rose-500/30";
+                                                        textClass = "text-white";
+                                                    } else if (day.totalSlides > 150) {
+                                                        bgClass = "bg-orange-500 shadow-sm shadow-orange-500/20";
+                                                        textClass = "text-white";
+                                                    } else if (day.totalSlides > 50) {
+                                                        bgClass = "bg-indigo-500";
+                                                        textClass = "text-white";
+                                                    } else if (day.totalSlides > 0) {
+                                                        bgClass = "bg-indigo-100 dark:bg-indigo-900/60";
+                                                        textClass = "text-indigo-800 dark:text-indigo-300";
+                                                    }
 
                                                     const isSelected = selectedCalDate === day.dStr;
 
                                                     return (
-                                                        <button key={idx} onClick={() => { triggerHaptic(); setSelectedCalDate(day.dStr); }} className={`aspect-square rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 ${bgClass} ${isSelected && !day.outOfBounds ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 ring-indigo-600 dark:ring-indigo-400 scale-110 z-10' : 'hover:scale-105'}`} disabled={day.outOfBounds}>
-                                                            <span className="text-xs font-bold font-mono">{day.date.getDate()}</span>
-                                                            {day.isToday && <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-current opacity-70"></span>}
+                                                        <button key={idx} onClick={() => { if(!day.outOfBounds) { triggerHaptic(); setSelectedCalDate(day.dStr); setActiveTab('planner'); } }} className={`aspect-square rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 ${bgClass} ${textClass} ${isSelected && !day.outOfBounds ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 ring-indigo-600 dark:ring-indigo-400 scale-110 z-10' : 'hover:scale-105'}`} disabled={day.outOfBounds}>
+                                                            <span className="text-[13px] font-bold font-mono">{day.date.getDate()}</span>
+                                                            {!day.outOfBounds && day.totalSlides > 0 && !day.isSkipped && (
+                                                                <span className="text-[8px] font-bold mt-0.5 opacity-80" dir="rtl">{day.totalSlides} <span className="text-[6px]">اسلاید</span></span>
+                                                            )}
+                                                            {day.isSkipped && (
+                                                                <span className="text-[8px] font-bold mt-0.5 opacity-70">تعطیل</span>
+                                                            )}
+                                                            {day.dailyExams.length > 0 && (
+                                                                <span className="text-[8px] font-black mt-0.5">آزمون!</span>
+                                                            )}
+                                                            {day.isToday && <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-current opacity-70"></span>}
                                                         </button>
                                                     );
                                                 })}
@@ -773,16 +869,17 @@
 
                                 <h3 className="text-sm font-black dark:text-white mt-8 mb-2 px-2">تنظیمات اصلی و امتحانات</h3>
                                 
-                                <div className="bg-indigo-50 dark:bg-slate-800 rounded-3xl border border-indigo-100 dark:border-slate-700 p-4 shadow-sm flex justify-between items-center">
+                                <div className={`bg-indigo-50 dark:bg-slate-800 rounded-3xl border ${!startDate ? 'border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'border-indigo-100 dark:border-slate-700'} p-4 flex justify-between items-center transition-all`}>
                                     <div>
                                         <h4 className="font-bold text-sm text-indigo-900 dark:text-white">تاریخ شروع مطالعه</h4>
+                                        {!startDate && <p className="text-[10px] text-indigo-500 mt-1 font-bold">حتما این بخش را تکمیل کنید!</p>}
                                     </div>
                                     <input 
                                         type="date" 
                                         value={startDate} 
                                         onChange={(e) => setStartDate(e.target.value)}
                                         style={{colorScheme: dark ? 'dark' : 'light'}}
-                                        className="bg-white dark:bg-slate-900 border border-indigo-200 dark:border-slate-600 rounded-xl text-xs font-bold text-indigo-700 dark:text-white p-2 outline-none"
+                                        className="bg-white dark:bg-slate-900 border border-indigo-200 dark:border-slate-600 rounded-xl text-xs font-bold text-indigo-700 dark:text-white p-2 outline-none cursor-pointer"
                                     />
                                 </div>
 
@@ -799,9 +896,9 @@
                                         </div>
                                         <div className="p-2 space-y-1">
                                             {ex.subjects.map(s => (
-                                                <div key={s.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl">
-                                                    <span className="text-[11px] dark:text-white truncate pr-2">{s.name}</span>
-                                                    <div className="flex items-center gap-2"><input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-indigo-600 dark:text-indigo-400 p-1 outline-none" /><button onClick={() => setExams(p => p.map(e => e.id===ex.id ? {...e, subjects:e.subjects.filter(x=>x.id!==s.id)} : e))} className="text-rose-400"><Icons.Trash /></button></div>
+                                                <div key={s.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl transition-colors">
+                                                    <span className="text-[11px] dark:text-white truncate pr-2 font-bold">{s.name}</span>
+                                                    <div className="flex items-center gap-2"><input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-indigo-600 dark:text-indigo-400 p-1.5 outline-none" /><button onClick={() => setExams(p => p.map(e => e.id===ex.id ? {...e, subjects:e.subjects.filter(x=>x.id!==s.id)} : e))} className="text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 p-1.5 rounded-lg transition-colors"><Icons.Trash /></button></div>
                                                 </div>
                                             ))}
                                         </div>
@@ -811,11 +908,11 @@
                         )}
                     </div>
 
-                    <div className="fixed bottom-0 left-0 right-0 glass-nav bg-white/80 dark:bg-slate-900/80 border-t dark:border-slate-800 p-4 pb-8 flex justify-around">
-                        <button onClick={() => {triggerHaptic(); setActiveTab('dashboard');}} className={activeTab === 'dashboard' ? 'text-indigo-600 scale-110' : 'text-slate-400'}><Icons.Dashboard /></button>
-                        <button onClick={() => {triggerHaptic(); setActiveTab('planner');}} className={activeTab === 'planner' ? 'text-indigo-600 scale-110' : 'text-slate-400'}><Icons.Planner /></button>
-                        <button onClick={() => {triggerHaptic(); setActiveTab('calendar');}} className={activeTab === 'calendar' ? 'text-indigo-600 scale-110' : 'text-slate-400'}><Icons.Calendar /></button>
-                        <button onClick={() => {triggerHaptic(); setActiveTab('settings');}} className={activeTab === 'settings' ? 'text-indigo-600 scale-110' : 'text-slate-400'}><Icons.Settings /></button>
+                    <div className="fixed bottom-0 left-0 right-0 glass-nav bg-white/90 dark:bg-slate-900/90 border-t dark:border-slate-800 p-4 pb-8 flex justify-around">
+                        <button onClick={() => {triggerHaptic(); setActiveTab('dashboard');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'dashboard' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Dashboard /> <span className="text-[9px] font-bold">داشبورد</span></button>
+                        <button onClick={() => {triggerHaptic(); setActiveTab('planner');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'planner' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Planner /> <span className="text-[9px] font-bold">برنامه‌ریز</span></button>
+                        <button onClick={() => {triggerHaptic(); setActiveTab('calendar');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'calendar' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Calendar /> <span className="text-[9px] font-bold">تقویم</span></button>
+                        <button onClick={() => {triggerHaptic(); setActiveTab('settings');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'settings' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Settings /> <span className="text-[9px] font-bold">تنظیمات</span></button>
                     </div>
                 </div>
             );
