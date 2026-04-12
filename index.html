@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>مربی هوشمند دندانپزشکی</title>
+    <title>مربی من | برنامه‌ریز هوشمند</title>
     <meta name="theme-color" content="#4f46e5">
     
     <script>
-        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
+        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
         const link = document.createElement('link');
         link.rel = 'icon'; link.href = APP_ICON_BASE64;
         document.head.appendChild(link);
@@ -58,7 +58,7 @@
     <div id="root">
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:Tahoma; color:#64748b;">
             <div style="width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px;"></div>
-            <h2>در حال بارگذاری...</h2>
+            <h2>در حال بارگذاری سیستم...</h2>
             <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
         </div>
     </div>
@@ -90,12 +90,6 @@
             Check: ({size=20, className=""}) => <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         };
 
-        const INITIAL_EXAMS = [
-            { id: 'e1', name: 'ارتودنسی و پدو', date: '2026-05-09', subjects: [ { id: 's1', name: 'ارتودنسی', slides: 100 }, { id: 's2', name: 'پدودونتیک', slides: 266 }, { id: 's3', name: 'متریال', slides: 0 } ] },
-            { id: 'e2', name: 'پروتز', date: '2026-05-16', subjects: [ { id: 's4', name: 'پروتز', slides: 1720 } ] },
-            { id: 'e3', name: 'رستوریتیو', date: '2026-05-23', subjects: [ { id: 's5', name: 'رستو-بنین', slides: 165 }, { id: 's6', name: 'رستو-توبا', slides: 248 }, { id: 's7', name: 'متریال', slides: 313 } ] }
-        ];
-
         const POMODORO_TIME = 25 * 60;
         const getLocalISODate = (dateObj) => {
             const year = dateObj.getFullYear();
@@ -122,7 +116,7 @@
             // App States
             const [activeTab, setActiveTab] = useState('planner');
             const [startDate, setStartDate] = useState('');
-            const [exams, setExams] = useState(INITIAL_EXAMS);
+            const [exams, setExams] = useState([]); // شروع با آرایه خالی (پروژه‌های کاربر)
             const [records, setRecords] = useState({});
             const [skipped, setSkipped] = useState([]);
             const [dark, setDark] = useState(false);
@@ -267,7 +261,7 @@
                 if (password.length < 6) return setAuthError('رمز عبور حداقل ۶ حرف');
 
                 const { signInWithEmailAndPassword, createUserWithEmailAndPassword } = window.FirebaseAPI;
-                const email = username.trim().toLowerCase() + "@dental.local"; 
+                const email = username.trim().toLowerCase() + "@planner.local"; 
 
                 try {
                     if (authMode === 'login') await signInWithEmailAndPassword(window.auth, email, password);
@@ -304,8 +298,8 @@
                     const newStreak = missedStreak + 1;
                     setMissedStreak(newStreak);
                     if (newStreak >= 3) {
-                        const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
-                        if (sortedExams.length > 1) setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
+                        const sortedExams = [...exams].filter(e=>e.date).sort((a, b) => new Date(a.date) - new Date(b.date));
+                        if (sortedExams.length > 0) setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
                         setMissedStreak(0);
                     }
                 } else if (stat === 'done') {
@@ -321,18 +315,21 @@
             const completeOnboarding = () => {
                 triggerHaptic();
                 setHasSeenOnboarding(true);
-                setActiveTab('settings'); // هدايت به تنظيمات برای انتخاب تاریخ شروع
+                setActiveTab('settings'); // هدايت به تنظيمات برای انتخاب تاریخ شروع و هدف
             };
 
-            // محاسبات زمان‌بندی
+            // محاسبات زمان‌بندی (هوشمند شده برای دیتای خالی)
             const schedule = useMemo(() => {
-                if (!startDate) return []; 
+                if (!startDate || exams.length === 0) return []; 
                 const plan = [];
                 const left = {};
                 exams.forEach(ex => ex.subjects.forEach(s => left[s.id] = { 1: s.slides, 2: s.slides, 3: s.slides }));
 
                 const sDate = new Date(startDate + 'T00:00:00');
-                const mDate = new Date(Math.max(...exams.map(e => new Date(e.date + 'T00:00:00'))));
+                const validExams = exams.filter(e => e.date);
+                if(validExams.length === 0) return [];
+
+                const mDate = new Date(Math.max(...validExams.map(e => new Date(e.date + 'T00:00:00'))));
                 let curr = new Date(sDate);
                 let absoluteDayCount = 1;
 
@@ -345,10 +342,13 @@
 
                     const tasks = [];
                     exams.forEach(ex => {
+                        if(!ex.date) return;
                         const exDate = new Date(ex.date + 'T00:00:00');
                         if (curr >= exDate) return;
 
                         const totalDays = Math.ceil((exDate - sDate) / 86400000);
+                        if(totalDays <= 0) return;
+
                         const p1D = Math.max(1, Math.floor(totalDays * 0.45));
                         const p2D = Math.max(1, Math.floor(totalDays * 0.35));
                         const dayIdx = Math.floor((curr - sDate) / 86400000);
@@ -368,11 +368,9 @@
 
                             const amt = rec?.isCustom ? rec.amount : Math.min(load, left[sub.id][phase]);
 
-                            // شرط جدید: اگر مبحث در آن روز اسکیپ شده باشد، باز هم رندر می‌شود اما از موجودی اسلایدها کم نمی‌شود.
                             if (rec?.status === 'done' || rec?.status === 'skipped' || (!rec?.isCustom && amt > 0) || (rec?.isCustom && (rec.amount > 0 || rec.status === 'missed'))) {
                                 tasks.push({ key, exName: ex.name, subName: sub.name, phase, amt, status: rec?.status || 'pending', isCustom: rec?.isCustom });
                                 
-                                // اگر اسکیپ شده باشد، از left کم نمی‌کنیم تا به روزهای بعد منتقل شود
                                 if (rec?.status === 'done' || (!rec?.status && amt > 0)) {
                                     left[sub.id][phase] -= amt;
                                 }
@@ -387,9 +385,12 @@
             }, [exams, records, skipped, rebalance, startDate]);
 
             const calendarGrid = useMemo(() => {
-                if (!startDate) return [];
+                if (!startDate || exams.length === 0) return [];
                 const sDate = new Date(startDate + 'T00:00:00');
-                const mDate = new Date(Math.max(...exams.map(e => new Date(e.date + 'T00:00:00'))));
+                const validExams = exams.filter(e => e.date);
+                if(validExams.length === 0) return [];
+                
+                const mDate = new Date(Math.max(...validExams.map(e => new Date(e.date + 'T00:00:00'))));
                 
                 const startSun = new Date(sDate);
                 startSun.setDate(startSun.getDate() - startSun.getDay());
@@ -405,7 +406,6 @@
                     const dStr = getLocalISODate(curr);
                     const dailyExams = exams.filter(e => e.date === dStr);
                     const sch = scheduleMap[dStr];
-                    // تعداد کل اسلایدهای رندر شده در آن روز (بدون احتساب اسکیپ شده‌ها)
                     const totalSlides = sch ? sch.tasks.reduce((acc, t) => acc + (t.status !== 'skipped' ? t.amt : 0), 0) : 0;
                     
                     grid.push({
@@ -419,13 +419,14 @@
             }, [exams, schedule, skipped, todayISO, startDate]);
 
             const xp = useMemo(() => Object.values(records).reduce((a, b) => b.status === 'done' ? a + b.amount : a, 0), [records]);
+            
             const dashboardStats = useMemo(() => exams.map(exam => {
                 let totalP1 = 0, doneP1 = 0;
                 exam.subjects.forEach(sub => {
                     totalP1 += sub.slides;
                     Object.keys(records).forEach(key => { if (key.includes(`_${exam.id}_${sub.id}_1`) && records[key].status === 'done') doneP1 += records[key].amount; });
                 });
-                const diff = Math.ceil((new Date(exam.date + 'T00:00:00') - new Date()) / 86400000);
+                const diff = exam.date ? Math.ceil((new Date(exam.date + 'T00:00:00') - new Date()) / 86400000) : 0;
                 return { id: exam.id, name: exam.name, daysLeft: Math.max(0, diff), percent: totalP1 === 0 ? 0 : Math.min(100, Math.round((doneP1 / totalP1) * 100)) };
             }), [exams, records]);
 
@@ -485,14 +486,14 @@
                                 <div>
                                     <h1 className="text-3xl font-black text-slate-800 dark:text-white mb-3">مربی من</h1>
                                     <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">
-                                        اولین برنامه‌ریز هوشمند دندانپزشکی، همراه با تقسیم خودکار مباحث و مرورهای منظم.
+                                        برنامه‌ریز هوشمند شخصی، همراه با تقسیم خودکار مباحث و مرورهای منظم برای هر هدفی که دارید.
                                     </p>
                                 </div>
 
                                 <div className="space-y-4 text-right bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 rounded-3xl shadow-sm border border-white dark:border-slate-700">
                                     <div className="flex items-start gap-4">
                                         <div className="p-2.5 bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 rounded-xl"><Icons.Planner /></div>
-                                        <div><h3 className="font-bold text-sm dark:text-white">برنامه‌ریزی خودکار</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">تقسیم هوشمند اسلایدها تا روز امتحان</p></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">برنامه‌ریزی خودکار</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">تقسیم هوشمند حجم دروس تا روز امتحان</p></div>
                                     </div>
                                     <div className="flex items-start gap-4">
                                         <div className="p-2.5 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 rounded-xl"><Icons.Timer size={20}/></div>
@@ -500,7 +501,7 @@
                                     </div>
                                     <div className="flex items-start gap-4">
                                         <div className="p-2.5 bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 rounded-xl"><Icons.Chart /></div>
-                                        <div><h3 className="font-bold text-sm dark:text-white">همگام‌سازی ابری</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">ذخیره امن اطلاعات در فضای ابری</p></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">اهداف شخصی‌سازی شده</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">مناسب برای کنکور، زبان، دانشگاه و پروژه‌ها</p></div>
                                     </div>
                                 </div>
 
@@ -512,7 +513,6 @@
                     );
                 }
 
-                // فرم ورود و ثبت نام
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900">
                         <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl w-full max-w-sm modal-animate relative">
@@ -559,22 +559,22 @@
                                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
                                     <Icons.Check size={32} />
                                 </div>
-                                <h2 className="text-2xl font-black mb-1">ورود موفقیت‌آمیز!</h2>
-                                <p className="text-xs opacity-80">به مربی هوشمند خوش آمدید</p>
+                                <h2 className="text-2xl font-black mb-1">خوش آمدید!</h2>
+                                <p className="text-xs opacity-80">برنامه‌ریزی هوشمند از اینجا شروع می‌شود</p>
                             </div>
                             
                             <div className="p-8 space-y-6 text-right">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Settings size={18}/></div>
-                                    <div><p className="text-sm font-bold dark:text-white mb-1">قدم اول: تعیین تاریخ</p><p className="text-[10px] text-slate-500 dark:text-slate-400">اول از همه به بخش تنظیمات بروید و تاریخ شروع مطالعه را مشخص کنید.</p></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">قدم اول: تعریف اهداف</p><p className="text-[10px] text-slate-500 dark:text-slate-400">از بخش تنظیمات، تاریخ شروع مطالعه را تعیین کرده و پروژه‌ها یا آزمون‌های خود را بسازید.</p></div>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Planner size={18}/></div>
-                                    <div><p className="text-sm font-bold dark:text-white mb-1">برنامه‌ریزی روزانه</p><p className="text-[10px] text-slate-500 dark:text-slate-400">سیستم به صورت خودکار برنامه هر روز را برای شما می‌چیند.</p></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">تولید برنامه روزانه</p><p className="text-[10px] text-slate-500 dark:text-slate-400">سیستم به طور خودکار حجم دروس شما را تا روز هدف تقسیم می‌کند.</p></div>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-400 flex-shrink-0"><Icons.Calendar size={18}/></div>
-                                    <div><p className="text-sm font-bold dark:text-white mb-1">پیگیری تقویم</p><p className="text-[10px] text-slate-500 dark:text-slate-400">تعداد اسلایدهای هر روز را در تقویم رصد کنید.</p></div>
+                                    <div><p className="text-sm font-bold dark:text-white mb-1">آزادی عمل</p><p className="text-[10px] text-slate-500 dark:text-slate-400">می‌توانید هر زمان برنامه را ویرایش کنید یا کل روز را استراحت بزنید!</p></div>
                                 </div>
                             </div>
 
@@ -606,11 +606,29 @@
                     {modal.open && (
                         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
                             <div className="bg-white dark:bg-slate-800 w-full max-w-sm rounded-3xl p-6 modal-animate shadow-2xl">
-                                {modal.type === 'add' && (
+                                {modal.type === 'add_exam' && (
                                     <>
-                                        <h3 className="text-xl font-bold mb-4 dark:text-white">افزودن مبحث</h3>
-                                        <input value={val1} onChange={e => setVal1(e.target.value)} placeholder="نام مبحث" className="w-full p-3 mb-3 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
-                                        <input type="number" value={val2} onChange={e => setVal2(e.target.value)} placeholder="تعداد اسلاید کل" className="w-full p-3 mb-6 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
+                                        <h3 className="text-xl font-bold mb-4 dark:text-white">افزودن هدف یا آزمون</h3>
+                                        <label className="block text-xs font-bold text-slate-500 mb-1 px-1">نام هدف / پروژه</label>
+                                        <input value={val1} onChange={e => setVal1(e.target.value)} placeholder="مثال: کنکور، آیلتس، پایان‌نامه..." className="w-full p-3 mb-4 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
+                                        <label className="block text-xs font-bold text-slate-500 mb-1 px-1">تاریخ رسیدن به هدف (آزمون)</label>
+                                        <input type="date" value={val2} onChange={e => setVal2(e.target.value)} className="w-full p-3 mb-6 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" style={{colorScheme: dark ? 'dark' : 'light'}} />
+                                        <div className="flex gap-2">
+                                            <button onClick={() => setModal({ open: false })} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300">لغو</button>
+                                            <button onClick={() => {
+                                                if (val1 && val2) {
+                                                    setExams(prev => [...prev, { id: 'e' + Date.now(), name: val1, date: val2, subjects: [] }]);
+                                                    setModal({ open: false });
+                                                }
+                                            }} className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-bold">ثبت هدف</button>
+                                        </div>
+                                    </>
+                                )}
+                                {modal.type === 'add_subject' && (
+                                    <>
+                                        <h3 className="text-xl font-bold mb-4 dark:text-white">افزودن زیرمبحث</h3>
+                                        <input value={val1} onChange={e => setVal1(e.target.value)} placeholder="نام مبحث (مثال: فصل اول، گرامر...)" className="w-full p-3 mb-3 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
+                                        <input type="number" value={val2} onChange={e => setVal2(e.target.value)} placeholder="تعداد کل (صفحه، تست، دقیقه و...)" className="w-full p-3 mb-6 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
                                         <div className="flex gap-2">
                                             <button onClick={() => setModal({ open: false })} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300">لغو</button>
                                             <button onClick={() => {
@@ -655,7 +673,7 @@
                                                 <Icons.Timer size={32} />
                                             </div>
                                             <h3 className="text-xl font-black mb-2 dark:text-white">خسته نباشید!</h3>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">یک پومودورو (۲۵ دقیقه) به پایان رسید. آیا این مبحث رو انجام دادید؟</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400">یک پومودورو (۲۵ دقیقه) به پایان رسید. آیا این بخش رو انجام دادید؟</p>
                                         </div>
                                         <div className="flex gap-2">
                                             <button onClick={() => { stopTimer(); setModal({ open: false }); }} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300">بعداً</button>
@@ -691,7 +709,7 @@
                                 <div className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
                                     <div className="flex justify-between items-center mb-6">
                                         <h3 className="font-bold dark:text-white flex items-center gap-2"><Icons.Chart /> پیشرفت ۷ روز گذشته</h3>
-                                        <span className="text-xs text-slate-400">اسلاید خوانده شده</span>
+                                        <span className="text-xs text-slate-400">واحدهای خوانده شده</span>
                                     </div>
                                     <div className="flex items-end justify-between h-40 gap-2 px-1">
                                         {weeklyData.data.map((day, idx) => (
@@ -706,31 +724,39 @@
                                     </div>
                                 </div>
 
-                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت امتحانات</h2>
-                                <div className="grid grid-cols-1 gap-4">
-                                    {dashboardStats.map(s => (
-                                        <div key={s.id} className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
-                                            <div className="flex justify-between mb-4"><h3 className="font-bold dark:text-white">{s.name}</h3><span className="text-[10px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-2 py-1 rounded-lg font-black">{s.daysLeft} روز</span></div>
-                                            <div className="flex justify-between text-[10px] mb-1 font-bold opacity-60 dark:text-slate-400"><span>پیشرفت دور اول</span><span>{s.percent}%</span></div>
-                                            <div className="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
-                                                <div className="bg-indigo-500 h-full progress-bar-stripes transition-all duration-1000" style={{width: `${s.percent}%`}}></div>
+                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت اهداف و آزمون‌ها</h2>
+                                {exams.length === 0 ? (
+                                    <div className="text-center py-8 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">شما هنوز هیچ هدفی ثبت نکرده‌اید.</p>
+                                        <button onClick={() => setActiveTab('settings')} className="mt-4 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 px-4 py-2 rounded-xl font-bold text-xs transition-colors hover:bg-indigo-200 dark:hover:bg-indigo-900">رفتن به تنظیمات</button>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-1 gap-4">
+                                        {dashboardStats.map(s => (
+                                            <div key={s.id} className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
+                                                <div className="flex justify-between mb-4"><h3 className="font-bold dark:text-white">{s.name}</h3><span className="text-[10px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-2 py-1 rounded-lg font-black">{s.daysLeft} روز باقیمانده</span></div>
+                                                <div className="flex justify-between text-[10px] mb-1 font-bold opacity-60 dark:text-slate-400"><span>پیشرفت دور اول</span><span>{s.percent}%</span></div>
+                                                <div className="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                                                    <div className="bg-indigo-500 h-full progress-bar-stripes transition-all duration-1000" style={{width: `${s.percent}%`}}></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         )}
 
                         {activeTab === 'planner' && (
                             <div className="space-y-6 fade-in">
-                                {!startDate && (
+                                {(!startDate || exams.length === 0) && (
                                      <div className="text-center py-10 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
                                          <Icons.Planner size={40} className="mx-auto text-slate-300 dark:text-slate-600 mb-4"/>
-                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">برای مشاهده برنامه‌ریزی، ابتدا از بخش تنظیمات تاریخ شروع مطالعه را تعیین کنید.</p>
+                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">برای مشاهده برنامه‌ریزی، ابتدا از بخش تنظیمات تاریخ شروع را تعیین کرده و حداقل یک هدف/آزمون اضافه کنید.</p>
+                                         <button onClick={() => setActiveTab('settings')} className="mt-6 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300 px-4 py-2 rounded-xl font-bold text-xs transition-colors hover:bg-indigo-200 dark:hover:bg-indigo-900">تنظیمات اهداف</button>
                                      </div>
                                 )}
 
-                                {startDate && schedule.map(day => (
+                                {startDate && exams.length > 0 && schedule.map(day => (
                                     <div key={day.dStr} className={`bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 overflow-hidden shadow-sm ${day.dStr === todayISO ? 'ring-2 ring-indigo-500' : ''}`}>
                                         <div className="bg-slate-50 dark:bg-slate-900/50 p-4 border-b dark:border-slate-700 flex justify-between items-center">
                                             <div className="flex items-center gap-2">
@@ -753,7 +779,7 @@
                                                             <p className="text-[10px] opacity-50 dark:text-slate-400 mt-1">{t.exName} • فاز {t.phase}</p>
                                                         </div>
                                                         <div className="flex items-center gap-1 bg-white dark:bg-slate-800 px-2 py-1 rounded-lg border dark:border-slate-700 shadow-sm">
-                                                            <span className={`text-xs font-black ${t.status === 'skipped' ? 'text-slate-400' : 'text-indigo-600 dark:text-indigo-400'}`}>{t.amt}</span><span className="text-[9px] text-slate-500">اسلاید</span>
+                                                            <span className={`text-xs font-black ${t.status === 'skipped' ? 'text-slate-400' : 'text-indigo-600 dark:text-indigo-400'}`}>{t.amt}</span><span className="text-[9px] text-slate-500">واحد</span>
                                                             {t.status === 'pending' && <button onClick={() => {setVal1(t.amt); setModal({open:true, type:'edit', data:{key:t.key}});}} className="mr-1 opacity-30 hover:opacity-100 dark:text-white transition-opacity"><Icons.Edit /></button>}
                                                         </div>
                                                     </div>
@@ -777,7 +803,7 @@
                                                     ) : (
                                                         <div className="flex justify-between items-center pt-2 border-t dark:border-slate-700/50">
                                                             <span className={`text-[10px] font-bold ${t.status === 'done' ? 'text-emerald-600 dark:text-emerald-400' : t.status === 'skipped' ? 'text-slate-500 dark:text-slate-400' : 'text-rose-600 dark:text-rose-400'}`}>
-                                                                {t.status === 'done' ? 'تکمیل شد' : (t.status === 'skipped' ? 'رد شد (اسلایدها فردا پخش می‌شوند)' : 'نخوانده ماند')}
+                                                                {t.status === 'done' ? 'تکمیل شد' : (t.status === 'skipped' ? 'رد شد (حجم آن فردا پخش می‌شود)' : 'نخوانده ماند')}
                                                             </span>
                                                             <button onClick={() => undoTask(t.key)} className="text-indigo-600 dark:text-indigo-400 p-1 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg hover:bg-indigo-100 transition-colors"><Icons.Undo /></button>
                                                         </div>
@@ -793,11 +819,11 @@
                         {activeTab === 'calendar' && (
                             <div className="space-y-6 fade-in">
                                 <div className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
-                                    <h2 className="text-lg font-black dark:text-white mb-2 flex items-center gap-2"><Icons.Calendar /> نقشه راه تا امتحانات</h2>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">یک نمای کلی از حجم مطالعه در کل مسیر برنامه‌ریزی شده.</p>
+                                    <h2 className="text-lg font-black dark:text-white mb-2 flex items-center gap-2"><Icons.Calendar /> نقشه راه تا اهداف</h2>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">یک نمای کلی از حجم مطالعه/کار در کل مسیر برنامه‌ریزی شده.</p>
                                     
-                                    {!startDate ? (
-                                        <div className="text-center py-6 text-slate-400 font-bold text-sm">تاریخ شروع مشخص نشده است.</div>
+                                    {(!startDate || exams.length === 0) ? (
+                                        <div className="text-center py-6 text-slate-400 font-bold text-sm">تاریخ شروع یا اهداف مشخص نشده‌اند.</div>
                                     ) : (
                                         <>
                                             <div className="grid grid-cols-7 gap-1.5 mb-2 text-center text-[10px] font-bold text-slate-400 dark:text-slate-500" dir="ltr">
@@ -835,7 +861,7 @@
                                                         <button key={idx} onClick={() => { if(!day.outOfBounds) { triggerHaptic(); setSelectedCalDate(day.dStr); setActiveTab('planner'); } }} className={`aspect-square rounded-xl flex flex-col items-center justify-center relative transition-all duration-200 ${bgClass} ${textClass} ${isSelected && !day.outOfBounds ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 ring-indigo-600 dark:ring-indigo-400 scale-110 z-10' : 'hover:scale-105'}`} disabled={day.outOfBounds}>
                                                             <span className="text-[13px] font-bold font-mono">{day.date.getDate()}</span>
                                                             {!day.outOfBounds && day.totalSlides > 0 && !day.isSkipped && (
-                                                                <span className="text-[8px] font-bold mt-0.5 opacity-80" dir="rtl">{day.totalSlides} <span className="text-[6px]">اسلاید</span></span>
+                                                                <span className="text-[8px] font-bold mt-0.5 opacity-80" dir="rtl">{day.totalSlides} <span className="text-[6px]">واحد</span></span>
                                                             )}
                                                             {day.isSkipped && (
                                                                 <span className="text-[8px] font-bold mt-0.5 opacity-70">تعطیل</span>
@@ -867,8 +893,6 @@
                                     </button>
                                 </div>
 
-                                <h3 className="text-sm font-black dark:text-white mt-8 mb-2 px-2">تنظیمات اصلی و امتحانات</h3>
-                                
                                 <div className={`bg-indigo-50 dark:bg-slate-800 rounded-3xl border ${!startDate ? 'border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-200 dark:shadow-indigo-900/20' : 'border-indigo-100 dark:border-slate-700'} p-4 flex justify-between items-center transition-all`}>
                                     <div>
                                         <h4 className="font-bold text-sm text-indigo-900 dark:text-white">تاریخ شروع مطالعه</h4>
@@ -883,18 +907,35 @@
                                     />
                                 </div>
 
+                                <div className="flex justify-between items-center mt-8 mb-2 px-2 border-b-2 border-indigo-500 dark:border-indigo-500/50 pb-2">
+                                    <h3 className="text-sm font-black dark:text-white">اهداف و پروژه‌ها</h3>
+                                    <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add_exam'});}} className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg font-bold shadow-md shadow-indigo-500/30 transition-transform hover:scale-105">+ افزودن هدف جدید</button>
+                                </div>
+
+                                {exams.length === 0 && (
+                                    <div className="text-center py-6 text-slate-400 text-xs font-bold bg-slate-100 dark:bg-slate-800 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+                                        هیچ هدفی ثبت نشده. روی "افزودن هدف جدید" کلیک کنید.
+                                    </div>
+                                )}
+
                                 {exams.map(ex => (
-                                    <div key={ex.id} className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+                                    <div key={ex.id} className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm transition-all hover:shadow-md">
                                         <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-b dark:border-slate-700 flex justify-between items-center">
-                                            <h4 className="font-bold text-sm dark:text-white flex items-center gap-2">
-                                                {ex.name} 
-                                                <span dir="ltr" className="text-[10px] bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-1.5 py-0.5 rounded-md">
-                                                    {formatDate(new Date(ex.date))}
-                                                </span>
-                                            </h4>
-                                            <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add', data:{exId:ex.id}});}} className="bg-indigo-600 text-white p-1.5 rounded-lg"><Icons.Plus /></button>
+                                            <div>
+                                                <h4 className="font-bold text-sm dark:text-white flex items-center gap-2">
+                                                    {ex.name} 
+                                                </h4>
+                                                <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+                                                    تاریخ: <span dir="ltr" className="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-1.5 py-0.5 rounded-md font-mono">{ex.date ? formatDate(new Date(ex.date)) : '-'}</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add_subject', data:{exId:ex.id}});}} className="bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400 px-2 py-1.5 rounded-lg text-[10px] font-bold">+ زیرمبحث</button>
+                                                <button onClick={() => setModal({open:true, type:'confirm', data:{msg:'آیا از حذف کامل این هدف و تمام زیرمباحث آن مطمئن هستید؟', fn:()=>setExams(p=>p.filter(e=>e.id!==ex.id))}})} className="text-rose-400 bg-rose-50 dark:bg-rose-900/20 p-1.5 rounded-lg"><Icons.Trash /></button>
+                                            </div>
                                         </div>
                                         <div className="p-2 space-y-1">
+                                            {ex.subjects.length === 0 && <p className="text-center text-[10px] text-slate-400 py-3">زیرمبحثی اضافه نشده است.</p>}
                                             {ex.subjects.map(s => (
                                                 <div key={s.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl transition-colors">
                                                     <span className="text-[11px] dark:text-white truncate pr-2 font-bold">{s.name}</span>
