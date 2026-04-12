@@ -5,14 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>مربی هوشمند دندانپزشکی</title>
-    
     <meta name="theme-color" content="#4f46e5">
     
     <script>
-        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
+        // آیکون برنامه
+        const APP_ICON_BASE64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAC8klEQVR4nO2dS0hUURjHf+fO6DglZpYvaSNoE7SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8SNoE0uS8Sn9A9pW6BNoE7SNoE0uS8SNoE0uS8T9+wf8AnLNR79Yn/YmAAAAAElFTkSuQmCC";
         const link = document.createElement('link');
         link.rel = 'icon'; link.href = APP_ICON_BASE64;
         document.head.appendChild(link);
+    </script>
+
+    <!-- لود کردن فایربیس به صورت ایمن و مستقیم -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        window.FirebaseAPI = {
+            initializeApp, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+            onAuthStateChanged, signOut, getFirestore, doc, setDoc, getDoc
+        };
     </script>
 
     <!-- Tailwind & React -->
@@ -39,9 +51,25 @@
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-darkBg transition-colors duration-300">
+    
+    <!-- سیستم جلوگیری از صفحه سفید -->
+    <script>
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            document.body.innerHTML = `
+                <div style="padding: 20px; color: #b91c1c; font-family: Tahoma; direction: ltr; text-align: left; background: #fee2e2; min-height: 100vh;">
+                    <h3 style="font-weight: bold; margin-bottom: 10px;">JavaScript Crash Detected!</h3>
+                    <p style="margin-bottom: 5px;"><b>Error:</b> ${msg}</p>
+                    <p style="font-size: 12px; color: #7f1d1d;">لطفا از این صفحه عکس بگیرید.</p>
+                </div>`;
+            return false;
+        };
+    </script>
+
     <div id="root">
         <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:Tahoma; color:#64748b;">
-            <h2 style="margin-bottom:10px;">در حال بارگذاری سیستم...</h2>
+            <div style="width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #4f46e5; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px;"></div>
+            <h2>در حال بارگذاری...</h2>
+            <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
         </div>
     </div>
 
@@ -87,9 +115,9 @@
         };
 
         function App() {
-            // === سیستم مدیریت فایربیس و ارورها ===
-            const [networkError, setNetworkError] = useState(false);
-            const [detailedError, setDetailedError] = useState(''); // برای نمایش متن دقیق ارور
+            // === Firebase & System State ===
+            const [firebaseReady, setFirebaseReady] = useState(false);
+            const [detailedError, setDetailedError] = useState(''); 
             const [authLoading, setAuthLoading] = useState(true);
             const [user, setUser] = useState(null);
             const [isDbReady, setIsDbReady] = useState(false);
@@ -99,7 +127,7 @@
             const [password, setPassword] = useState('');
             const [authError, setAuthError] = useState('');
 
-            // === استیت‌های برنامه ===
+            // === App State ===
             const [activeTab, setActiveTab] = useState('planner');
             const [startDate, setStartDate] = useState('');
             const [exams, setExams] = useState(INITIAL_EXAMS);
@@ -117,64 +145,78 @@
             const [val1, setVal1] = useState('');
             const [val2, setVal2] = useState('');
 
-            // ۱. اتصال پویا و هوشمند به سرور
+            // 1. Wait for window.FirebaseAPI to be loaded by the script tag
             useEffect(() => {
-                const initFirebase = async () => {
-                    const config = {
-                        apiKey: "AIzaSyDsbVjGnWPutR_av7MyaLRuD0Vs4mDdsQA",
-                        authDomain: "train-67d6c.firebaseapp.com",
-                        projectId: "train-67d6c",
-                        storageBucket: "train-67d6c.firebasestorage.app",
-                        messagingSenderId: "21141733142",
-                        appId: "1:21141733142:web:eb6908c331c7a514a05a37",
-                        measurementId: "G-ZBBHD52NRF"
-                    };
-
-                    try {
-                        const [appMod, authMod, dbMod] = await Promise.all([
-                            import('https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js'),
-                            import('https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js'),
-                            import('https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js')
-                        ]);
-
-                        const app = appMod.initializeApp(config);
-                        const auth = authMod.getAuth(app);
-                        const db = dbMod.getFirestore(app);
-
-                        window.FirebaseAPI = { ...appMod, ...authMod, ...dbMod };
-                        window.db = db;
-                        window.auth = auth;
-                        window.appId = 'dental-planner';
-
-                        // بررسی وضعیت کاربر (تغییر یافته نسبت به قبل برای خطایابی بهتر)
-                        authMod.onAuthStateChanged(auth, (u) => {
-                            if (u) {
-                                setUser(u);
-                            } else {
-                                setUser(null);
-                            }
-                            setAuthLoading(false);
-                        });
-
-                    } catch (error) {
-                        console.error("Firebase Init Error:", error);
-                        setNetworkError(true);
-                        setDetailedError(error.message);
+                let attempts = 0;
+                const timer = setInterval(() => {
+                    attempts++;
+                    if (window.FirebaseAPI) {
+                        clearInterval(timer);
+                        setFirebaseReady(true);
                     }
-                };
-
-                initFirebase();
+                    if (attempts > 50) { // Timeout after 5 seconds
+                        clearInterval(timer);
+                        setDetailedError("فایربیس در این شبکه بارگذاری نشد (احتمالاً به دلیل تحریم یا عدم دسترسی اینترنت).");
+                    }
+                }, 100);
+                return () => clearInterval(timer);
             }, []);
 
-            // ۲. دریافت اطلاعات کاربری بعد از ورود (با سیستم خطایاب)
+            // 2. Initialize Firebase once ready
+            useEffect(() => {
+                if (!firebaseReady || !window.FirebaseAPI) return;
+
+                const config = {
+                    apiKey: "AIzaSyDsbVjGnWPutR_av7MyaLRuD0Vs4mDdsQA",
+                    authDomain: "train-67d6c.firebaseapp.com",
+                    projectId: "train-67d6c",
+                    storageBucket: "train-67d6c.firebasestorage.app",
+                    messagingSenderId: "21141733142",
+                    appId: "1:21141733142:web:eb6908c331c7a514a05a37",
+                    measurementId: "G-ZBBHD52NRF"
+                };
+
+                try {
+                    const { initializeApp, getAuth, getFirestore, onAuthStateChanged } = window.FirebaseAPI;
+                    
+                    let app;
+                    // Prevent double initialization errors in React
+                    try {
+                        app = initializeApp(config);
+                    } catch (e) {
+                        if(e.code === 'app/duplicate-app') app = window.FirebaseAPI.getApp();
+                        else throw e;
+                    }
+
+                    const auth = getAuth(app);
+                    const db = getFirestore(app);
+
+                    window.db = db;
+                    window.auth = auth;
+
+                    onAuthStateChanged(auth, (u) => {
+                        if (u) {
+                            setUser(u);
+                        } else {
+                            setUser(null);
+                        }
+                        setAuthLoading(false);
+                    });
+
+                } catch (error) {
+                    console.error("Firebase Init Error:", error);
+                    setDetailedError(error.message);
+                }
+            }, [firebaseReady]);
+
+            // 3. Load User Data
             useEffect(() => {
                 if (!user || !window.db || !window.FirebaseAPI) return;
                 
                 const loadData = async () => {
                     const { doc, getDoc } = window.FirebaseAPI;
-                    
-                    // تلاش برای ساخت کالکشن خصوصی کاربر در فایربیس
-                    const docRef = doc(window.db, 'artifacts', window.appId, 'users', user.uid, 'userState');
+                    // مسیر ثابت برای جلوگیری از ارور
+                    const docRef = doc(window.db, 'users', user.uid);
                     
                     try {
                         const docSnap = await getDoc(docRef);
@@ -191,12 +233,9 @@
                         setIsDbReady(true);
                     } catch (e) {
                         console.error("Firestore Error:", e);
-                        // اگر اینجا خطا داد یعنی مشکل از Rules فایربیس است
                         if (e.code === 'permission-denied') {
-                            setNetworkError(true);
-                            setDetailedError("دسترسی خواندن/نوشتن در فایربیس بسته است (Permission Denied). لطفاً در پنل فایربیس تب Firestore Rules را ویرایش کنید.");
+                            setDetailedError("دسترسی دیتابیس بسته است. لطفا در سایت فایربیس، بخش Firestore Rules، گزینه read/write را آزاد کنید.");
                         } else {
-                            setNetworkError(true);
                             setDetailedError("خطا در ارتباط با دیتابیس: " + e.message);
                         }
                     }
@@ -204,13 +243,13 @@
                 loadData();
             }, [user]);
 
-            // ۳. ذخیره‌سازی خودکار
+            // 4. Save User Data
             useEffect(() => {
                 if (!isDbReady || !user || !window.db || !window.FirebaseAPI) return;
                 
                 const saveData = async () => {
                     const { doc, setDoc } = window.FirebaseAPI;
-                    const docRef = doc(window.db, 'artifacts', window.appId, 'users', user.uid, 'userState');
+                    const docRef = doc(window.db, 'users', user.uid);
                     try {
                         await setDoc(docRef, {
                             startDate, exams, records, skipped, missedStreak, rebalance, dark,
@@ -219,8 +258,7 @@
                     } catch (err) {
                         console.error("Save Error:", err);
                         if (err.code === 'permission-denied') {
-                            setNetworkError(true);
-                            setDetailedError("دسترسی ذخیره اطلاعات در دیتابیس فایربیس مسدود است (Permission Denied).");
+                            setDetailedError("دسترسی ذخیره اطلاعات در دیتابیس مسدود است.");
                         }
                     }
                 };
@@ -235,7 +273,7 @@
                 else document.documentElement.classList.remove('dark');
             }, [dark]);
 
-            // === تایمر ===
+            // === Timer Engine ===
             useEffect(() => {
                 let interval = null;
                 if (activeTimer.isRunning && activeTimer.timeLeft > 0) {
@@ -250,7 +288,7 @@
                 return () => clearInterval(interval);
             }, [activeTimer.isRunning, activeTimer.timeLeft]);
 
-            // === توابع کمکی ===
+            // === Helpers ===
             const triggerHaptic = () => { if (navigator.vibrate) navigator.vibrate(50); };
             const formatDate = (date) => new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(date);
             const formatTime = (seconds) => {
@@ -275,7 +313,7 @@
                     console.error("Auth Error:", err);
                     if (err.code === 'auth/email-already-in-use') setAuthError('این نام کاربری قبلاً ثبت شده است!');
                     else if (err.code === 'auth/invalid-credential') setAuthError('نام کاربری یا رمز عبور اشتباه است!');
-                    else if (err.code === 'auth/operation-not-allowed') setAuthError('سیستم لاگین با ایمیل/پسورد در پروژه فایربیس شما غیرفعال است! باید آن را از بخش Authentication روشن کنید.');
+                    else if (err.code === 'auth/operation-not-allowed') setAuthError('سیستم ورود در فایربیس فعال نیست! (در پنل فایربیس Email/Password را فعال کنید)');
                     else setAuthError('خطای ورود: ' + err.message);
                 }
             };
@@ -303,6 +341,20 @@
                 triggerHaptic();
                 setRecords(prev => ({ ...prev, [key]: { amount: amt, status: stat, isCustom: custom } }));
                 if (activeTimer.key === key) stopTimer();
+
+                if (stat === 'missed') {
+                    const newStreak = missedStreak + 1;
+                    setMissedStreak(newStreak);
+                    if (newStreak >= 3) {
+                        const sortedExams = [...exams].sort((a, b) => new Date(a.date) - new Date(b.date));
+                        if (sortedExams.length > 1) {
+                            setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
+                        }
+                        setMissedStreak(0);
+                    }
+                } else if (stat === 'done') {
+                    setMissedStreak(0);
+                }
             };
 
             const undoTask = (key) => {
@@ -310,7 +362,7 @@
                 setRecords(prev => { const n = { ...prev }; delete n[key]; return n; });
             };
 
-            // محاسبات زمان‌بندی
+            // Schedule Calculation
             const schedule = useMemo(() => {
                 if (!startDate) return []; 
                 const plan = [];
@@ -426,17 +478,14 @@
             // صفحات خطا و ارتباط با سرور
             // ==========================================
 
-            if (networkError) {
+            if (detailedError) {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 text-rose-800" dir="rtl">
                         <Icons.Warning size={64} className="text-rose-500 mb-6" />
-                        <h2 className="text-xl font-black mb-4 text-center">خطا در ارتباط با فایربیس</h2>
+                        <h2 className="text-xl font-black mb-4 text-center">مشکل در ارتباط با سرور</h2>
                         <div className="bg-rose-100 p-4 rounded-xl text-sm mb-6 text-rose-900 border border-rose-200" dir="ltr" style={{maxWidth: '100%', wordBreak: 'break-all'}}>
-                            <b>Error Details:</b><br/>{detailedError}
+                            <b>Error:</b><br/>{detailedError}
                         </div>
-                        <p className="text-sm text-center mb-6 text-slate-600 leading-relaxed font-bold">
-                            لطفاً تنظیماتی که در پاسخ هوش مصنوعی ذکر شده را در سایت فایربیس بررسی کنید (بخش Rules و Authentication).
-                        </p>
                         <button onClick={()=>window.location.reload()} className="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold shadow-lg shadow-rose-500/30">تلاش مجدد</button>
                     </div>
                 );
@@ -445,8 +494,8 @@
             if (authLoading || (user && !isDbReady)) {
                 return (
                     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900 text-indigo-600 dark:text-indigo-400">
-                        <Icons.Sparkles size={40} className="animate-pulse mb-4" />
-                        <h2 className="font-bold">در حال اتصال به دیتابیس ابری...</h2>
+                        <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+                        <h2 className="font-bold">در حال اتصال به دیتابیس...</h2>
                     </div>
                 );
             }
