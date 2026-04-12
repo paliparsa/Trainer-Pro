@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -16,11 +17,12 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         window.FirebaseAPI = {
             initializeApp, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
             onAuthStateChanged, signOut, getFirestore, doc, setDoc, getDoc,
+            collection, query, orderBy, limit, getDocs,
             GoogleAuthProvider, signInWithPopup
         };
     </script>
@@ -45,6 +47,7 @@
         @keyframes modalIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .badge-locked { filter: grayscale(100%) opacity(0.4); }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-darkBg transition-colors duration-300">
@@ -88,7 +91,15 @@
             User: ({size=20}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
             LogOut: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
             Check: ({size=20, className=""}) => <svg width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-            Google: ({size=22}) => <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Google: ({size=22}) => <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>,
+            Trophy: ({size=22}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        };
+
+        const BADGES_INFO = {
+            'first_blood': { icon: '🩸', title: 'قطره اول', desc: 'اولین مبحث را به پایان رساندی!' },
+            'pomodoro_master': { icon: '🍅', title: 'پومودورو مستر', desc: '۵ پومودوروی موفق' },
+            'night_owl': { icon: '🦉', title: 'جغد شب', desc: 'مطالعه در نیمه‌شب (۱۲ تا ۵ صبح)' },
+            'on_fire': { icon: '🔥', title: 'آتشین', desc: 'کسب بیش از ۵۰ امتیاز' }
         };
 
         const POMODORO_TIME = 25 * 60;
@@ -117,12 +128,17 @@
             // App States
             const [activeTab, setActiveTab] = useState('planner');
             const [startDate, setStartDate] = useState('');
-            const [exams, setExams] = useState([]); // دیتای اولیه خالی
+            const [exams, setExams] = useState([]); 
             const [records, setRecords] = useState({});
             const [skipped, setSkipped] = useState([]);
             const [dark, setDark] = useState(false);
             
-            // Wizard States (برای گرفتن اطلاعات اولیه کاربر)
+            // Gamification States
+            const [badges, setBadges] = useState([]);
+            const [pomodorosCompleted, setPomodorosCompleted] = useState(0);
+            const [leaderboard, setLeaderboard] = useState([]);
+            const [loadingLeague, setLoadingLeague] = useState(false);
+
             const [wizardStep, setWizardStep] = useState(1);
             const [wizGoalName, setWizGoalName] = useState('');
             const [wizGoalDate, setWizGoalDate] = useState('');
@@ -193,8 +209,7 @@
                 if (!user || !window.db || !window.FirebaseAPI) return;
                 const loadData = async () => {
                     const { doc, getDoc } = window.FirebaseAPI;
-                    // مسیر جدید برای دیتای کاملا داینامیک
-                    const docRef = doc(window.db, 'users', user.uid, 'data', 'general_planner_v1');
+                    const docRef = doc(window.db, 'users', user.uid, 'data', 'general_planner_v2');
                     try {
                         const docSnap = await getDoc(docRef);
                         if (docSnap.exists()) {
@@ -207,6 +222,8 @@
                             setRebalance(data.rebalance || { active: false, until: null, nearestExamId: null });
                             setDark(data.dark || false);
                             setHasSeenOnboarding(data.hasSeenOnboarding || false);
+                            setBadges(data.badges || []);
+                            setPomodorosCompleted(data.pomodorosCompleted || 0);
                         } else {
                             setStartDate('');
                             setExams([]);
@@ -215,7 +232,9 @@
                             setMissedStreak(0);
                             setRebalance({ active: false, until: null, nearestExamId: null });
                             setHasSeenOnboarding(false);
-                            setWizardStep(1); // ریست ویزارد برای کاربر جدید
+                            setBadges([]);
+                            setPomodorosCompleted(0);
+                            setWizardStep(1); 
                         }
                         setIsDbReady(true);
                     } catch (e) {
@@ -231,10 +250,10 @@
                 if (!isDbReady || !user || !window.db || !window.FirebaseAPI) return;
                 const saveData = async () => {
                     const { doc, setDoc } = window.FirebaseAPI;
-                    const docRef = doc(window.db, 'users', user.uid, 'data', 'general_planner_v1');
+                    const docRef = doc(window.db, 'users', user.uid, 'data', 'general_planner_v2');
                     try {
                         await setDoc(docRef, {
-                            startDate, exams, records, skipped, missedStreak, rebalance, dark, hasSeenOnboarding,
+                            startDate, exams, records, skipped, missedStreak, rebalance, dark, hasSeenOnboarding, badges, pomodorosCompleted,
                             lastUpdated: new Date().toISOString()
                         }, { merge: true });
                     } catch (err) {
@@ -245,7 +264,61 @@
                 };
                 const debounceTimer = setTimeout(saveData, 500);
                 return () => clearTimeout(debounceTimer);
-            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, hasSeenOnboarding, isDbReady, user]);
+            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, hasSeenOnboarding, badges, pomodorosCompleted, isDbReady, user]);
+
+            // Sync Leaderboard
+            const xp = useMemo(() => Object.values(records).reduce((a, b) => b.status === 'done' ? a + b.amount : a, 0), [records]);
+            
+            useEffect(() => {
+                if (!isDbReady || !user || !window.FirebaseAPI) return;
+                const updateLeaderboard = async () => {
+                    const { doc, setDoc } = window.FirebaseAPI;
+                    const name = user.displayName || user.email?.split('@')[0] || 'کاربر پرو';
+                    try {
+                        await setDoc(doc(window.db, 'leaderboard', user.uid), {
+                            name, xp, lastUpdated: new Date().toISOString()
+                        }, { merge: true });
+                    } catch (e) { /* ignore silently if no perm */ }
+                };
+                const timer = setTimeout(updateLeaderboard, 2000); 
+                return () => clearTimeout(timer);
+            }, [xp, isDbReady, user]);
+
+            // Load Leaderboard
+            useEffect(() => {
+                if (activeTab !== 'league' || !window.FirebaseAPI || !window.db) return;
+                const fetchLeague = async () => {
+                    setLoadingLeague(true);
+                    try {
+                        const { collection, query, orderBy, limit, getDocs } = window.FirebaseAPI;
+                        const q = query(collection(window.db, "leaderboard"), orderBy("xp", "desc"), limit(20));
+                        const querySnapshot = await getDocs(q);
+                        const list = [];
+                        querySnapshot.forEach((doc) => {
+                            list.push({ id: doc.id, ...doc.data() });
+                        });
+                        setLeaderboard(list);
+                    } catch (e) {
+                        console.error("League Error:", e);
+                    }
+                    setLoadingLeague(false);
+                };
+                fetchLeague();
+            }, [activeTab]);
+
+            // Badges Checker Logic
+            const unlockBadge = (id) => {
+                setBadges(prev => prev.includes(id) ? prev : [...prev, id]);
+            };
+
+            useEffect(() => {
+                if (xp >= 50) unlockBadge('on_fire');
+            }, [xp]);
+
+            useEffect(() => {
+                if (pomodorosCompleted >= 5) unlockBadge('pomodoro_master');
+            }, [pomodorosCompleted]);
+
 
             useEffect(() => {
                 if (dark) document.documentElement.classList.add('dark');
@@ -293,18 +366,13 @@
             };
 
             const handleGoogleLogin = async () => {
-                triggerHaptic();
-                setAuthError('');
+                triggerHaptic(); setAuthError('');
                 try {
                     const { GoogleAuthProvider, signInWithPopup } = window.FirebaseAPI;
                     const provider = new GoogleAuthProvider();
                     await signInWithPopup(window.auth, provider);
                 } catch (err) {
-                    console.error("Google Auth Error:", err);
-                    if (err.code === 'auth/popup-closed-by-user') {
-                    } else if (err.code === 'auth/operation-not-allowed') {
-                        setAuthError('ورود با حساب گوگل در پنل فایربیس شما غیرفعال است! آن را روشن کنید.');
-                    } else {
+                    if (err.code !== 'auth/popup-closed-by-user') {
                         setAuthError('خطا در ارتباط با گوگل: ' + err.message);
                     }
                 }
@@ -313,19 +381,12 @@
             const handleLogout = async () => {
                 triggerHaptic();
                 await window.FirebaseAPI.signOut(window.auth);
-                setIsDbReady(false);
-                setShowAuthForm(false);
-                setActiveTab('planner');
+                setIsDbReady(false); setShowAuthForm(false); setActiveTab('planner');
                 
-                setStartDate('');
-                setExams([]); 
-                setRecords({});
-                setSkipped([]);
-                setMissedStreak(0);
-                setRebalance({ active: false, until: null, nearestExamId: null });
-                setHasSeenOnboarding(false);
-                setUsername('');
-                setPassword('');
+                setStartDate(''); setExams([]); setRecords({}); setSkipped([]);
+                setMissedStreak(0); setRebalance({ active: false, until: null, nearestExamId: null });
+                setHasSeenOnboarding(false); setUsername(''); setPassword('');
+                setBadges([]); setPomodorosCompleted(0);
             };
 
             const toggleTimer = (t) => {
@@ -341,7 +402,12 @@
                 setRecords(prev => ({ ...prev, [key]: { amount: amt, status: stat, isCustom: custom } }));
                 if (activeTimer.key === key) stopTimer();
 
-                if (stat === 'missed') {
+                if (stat === 'done') {
+                    setMissedStreak(0);
+                    unlockBadge('first_blood');
+                    const h = new Date().getHours();
+                    if (h >= 0 && h < 5) unlockBadge('night_owl');
+                } else if (stat === 'missed') {
                     const newStreak = missedStreak + 1;
                     setMissedStreak(newStreak);
                     if (newStreak >= 3) {
@@ -349,8 +415,6 @@
                         if (sortedExams.length > 0) setModal({ open: true, type: 'rebalance', data: { nearest: sortedExams[0] } });
                         setMissedStreak(0);
                     }
-                } else if (stat === 'done') {
-                    setMissedStreak(0);
                 }
             };
 
@@ -465,8 +529,6 @@
                 return grid;
             }, [exams, schedule, skipped, todayISO, startDate]);
 
-            const xp = useMemo(() => Object.values(records).reduce((a, b) => b.status === 'done' ? a + b.amount : a, 0), [records]);
-            
             const dashboardStats = useMemo(() => exams.map(exam => {
                 let totalP1 = 0, doneP1 = 0;
                 exam.subjects.forEach(sub => {
@@ -533,22 +595,18 @@
                                 <div>
                                     <h1 className="text-3xl font-black text-slate-800 dark:text-white mb-3">مربی پرو</h1>
                                     <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">
-                                        برنامه‌ریز هوشمند و کاملاً شخصی، همراه با تقسیم خودکار مباحث و مرورهای منظم برای موفقیت شما.
+                                        برنامه‌ریز هوشمند، همراه با لیگ رقابتی، سیستم مدال‌ها و مرور منظم برای اهداف شما.
                                     </p>
                                 </div>
 
                                 <div className="space-y-4 text-right bg-white/60 dark:bg-slate-800/60 backdrop-blur-md p-6 rounded-3xl shadow-sm border border-white dark:border-slate-700">
                                     <div className="flex items-start gap-4">
-                                        <div className="p-2.5 bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 rounded-xl"><Icons.Planner /></div>
-                                        <div><h3 className="font-bold text-sm dark:text-white">برنامه‌ریزی هوشمند</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">تقسیم اتوماتیک حجم کارها تا روز هدف</p></div>
+                                        <div className="p-2.5 bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 rounded-xl"><Icons.Trophy /></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">لیگ قهرمانان و مدال</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">با دیگران رقابت کنید و مدال بگیرید</p></div>
                                     </div>
                                     <div className="flex items-start gap-4">
-                                        <div className="p-2.5 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 rounded-xl"><Icons.Timer size={20}/></div>
-                                        <div><h3 className="font-bold text-sm dark:text-white">تکنیک پومودورو</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">مدیریت زمان مطالعه با تایمر داخلی</p></div>
-                                    </div>
-                                    <div className="flex items-start gap-4">
-                                        <div className="p-2.5 bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400 rounded-xl"><Icons.Chart /></div>
-                                        <div><h3 className="font-bold text-sm dark:text-white">کاملاً شخصی‌سازی شده</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">مناسب برای کنکور، دانشگاه، آیلتس و پروژه‌ها</p></div>
+                                        <div className="p-2.5 bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 rounded-xl"><Icons.Planner size={20}/></div>
+                                        <div><h3 className="font-bold text-sm dark:text-white">برنامه‌ریزی خودکار</h3><p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">تقسیم هوشمند کارها تا روز هدف</p></div>
                                     </div>
                                 </div>
 
@@ -608,7 +666,7 @@
             }
 
             // ==========================================
-            // ویزارد راه‌اندازی اهداف (فقط برای کاربران تازه وارد)
+            // ویزارد راه‌اندازی (کاربر جدید)
             // ==========================================
             if (user && isDbReady && !hasSeenOnboarding) {
                 return (
@@ -617,23 +675,19 @@
                         <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
 
                         <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden z-10 border border-slate-100 dark:border-slate-700 relative">
-                            
-                            {/* نوار پیشرفت */}
                             <div className="flex h-2 bg-slate-100 dark:bg-slate-700">
                                 <div className={`bg-indigo-600 transition-all duration-500 h-full ${wizardStep === 1 ? 'w-1/3' : wizardStep === 2 ? 'w-2/3' : 'w-full'}`}></div>
                             </div>
 
-                            {/* Header */}
                             <div className="p-6 pb-2 text-center">
                                 <h2 className="text-2xl font-black text-slate-800 dark:text-white mb-1">راه‌اندازی مربی پرو</h2>
                                 <p className="text-xs text-slate-500 dark:text-slate-400">
                                     {wizardStep === 1 && "قدم اول: زمان‌بندی"}
                                     {wizardStep === 2 && "قدم دوم: تعریف هدف اصلی"}
-                                    {wizardStep === 3 && "قدم نهایی: ساختار درسی"}
+                                    {wizardStep === 3 && "قدم نهایی: ساختار پروژه"}
                                 </p>
                             </div>
 
-                            {/* محتوای مراحل */}
                             <div className="p-6 pt-4">
                                 {wizardStep === 1 && (
                                     <div className="space-y-6 fade-in">
@@ -642,22 +696,11 @@
                                         </div>
                                         <div className="text-center mb-6">
                                             <p className="text-sm text-slate-600 dark:text-slate-300 font-bold mb-4 leading-relaxed">
-                                                برای شروع، از چه تاریخی می‌خواهید برنامه‌ریزی و مطالعه شما آغاز شود؟
+                                                برای شروع، از چه تاریخی می‌خواهید برنامه‌ریزی شما آغاز شود؟
                                             </p>
-                                            <input 
-                                                type="date" 
-                                                value={startDate} 
-                                                onChange={(e) => setStartDate(e.target.value)}
-                                                style={{colorScheme: dark ? 'dark' : 'light'}}
-                                                className="w-full p-4 bg-slate-100 dark:bg-slate-900 border border-indigo-200 dark:border-slate-600 rounded-2xl text-sm font-bold text-center text-indigo-700 dark:text-white outline-none cursor-pointer focus:ring-2 focus:ring-indigo-500"
-                                            />
+                                            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} style={{colorScheme: dark ? 'dark' : 'light'}} className="w-full p-4 bg-slate-100 dark:bg-slate-900 border border-indigo-200 dark:border-slate-600 rounded-2xl text-sm font-bold text-center text-indigo-700 dark:text-white outline-none cursor-pointer focus:ring-2 focus:ring-indigo-500" />
                                         </div>
-                                        <button 
-                                            onClick={() => { if(startDate) setWizardStep(2); else alert('لطفا یک تاریخ انتخاب کنید.'); }} 
-                                            className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors"
-                                        >
-                                            تایید و ادامه
-                                        </button>
+                                        <button onClick={() => { if(startDate) setWizardStep(2); else alert('لطفا یک تاریخ انتخاب کنید.'); }} className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors">تایید و ادامه</button>
                                     </div>
                                 )}
 
@@ -667,26 +710,19 @@
                                             <Icons.Flame size={32} />
                                         </div>
                                         <div className="space-y-4 mb-6">
-                                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold text-center leading-relaxed mb-4">
-                                                اولین هدف بزرگ یا آزمونی که برای آن آماده می‌شوید چیست؟
-                                            </p>
+                                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold text-center leading-relaxed mb-4">اولین هدف بزرگ یا آزمونی که برای آن آماده می‌شوید چیست؟</p>
                                             <div>
                                                 <label className="block text-xs font-bold text-slate-500 mb-1 px-1">نام هدف (مثل: کنکور، آیلتس...)</label>
                                                 <input value={wizGoalName} onChange={e=>setWizGoalName(e.target.value)} placeholder="مثال: آزمون آیلتس" className="w-full p-4 bg-slate-100 dark:bg-slate-900 border-none rounded-2xl text-sm font-bold dark:text-white outline-none focus:ring-2 focus:ring-indigo-500" />
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-slate-500 mb-1 px-1">تاریخ رسیدن به هدف / آزمون</label>
+                                                <label className="block text-xs font-bold text-slate-500 mb-1 px-1">تاریخ رسیدن به هدف / ددلاین</label>
                                                 <input type="date" value={wizGoalDate} onChange={e=>setWizGoalDate(e.target.value)} style={{colorScheme: dark ? 'dark' : 'light'}} className="w-full p-4 bg-slate-100 dark:bg-slate-900 border-none rounded-2xl text-sm font-bold text-center dark:text-white outline-none focus:ring-2 focus:ring-indigo-500" />
                                             </div>
                                         </div>
                                         <div className="flex gap-2">
                                             <button onClick={() => setWizardStep(1)} className="py-4 px-6 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl font-bold hover:bg-slate-300 transition-colors">بازگشت</button>
-                                            <button 
-                                                onClick={() => { if(wizGoalName && wizGoalDate) setWizardStep(3); else alert('لطفا نام و تاریخ را پر کنید.'); }} 
-                                                className="flex-1 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors"
-                                            >
-                                                تایید و ادامه
-                                            </button>
+                                            <button onClick={() => { if(wizGoalName && wizGoalDate) setWizardStep(3); else alert('لطفا نام و تاریخ را پر کنید.'); }} className="flex-1 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-colors">تایید و ادامه</button>
                                         </div>
                                     </div>
                                 )}
@@ -696,42 +732,21 @@
                                         <div className="w-20 h-20 bg-emerald-50 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto text-emerald-600 dark:text-emerald-400 mb-4">
                                             <Icons.Planner size={32} />
                                         </div>
-                                        <p className="text-sm text-slate-600 dark:text-slate-300 font-bold text-center leading-relaxed">
-                                            حالا مباحث یا بخش‌های این هدف را اضافه کنید.
-                                        </p>
+                                        <p className="text-sm text-slate-600 dark:text-slate-300 font-bold text-center leading-relaxed">حالا مباحث این هدف را اضافه کنید.</p>
                                         
                                         <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
                                             <div className="flex gap-2 mb-2">
-                                                <div className="flex-[2]">
-                                                    <input value={wizSubName} onChange={e=>setWizSubName(e.target.value)} placeholder="مبحث (مثال: فصل ۱)" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white outline-none border border-slate-200 dark:border-slate-700" />
-                                                </div>
-                                                <div className="flex-[1]">
-                                                    <input type="number" value={wizSubAmt} onChange={e=>setWizSubAmt(e.target.value)} placeholder="تعداد کل" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white text-center outline-none border border-slate-200 dark:border-slate-700" />
-                                                </div>
+                                                <div className="flex-[2]"><input value={wizSubName} onChange={e=>setWizSubName(e.target.value)} placeholder="مبحث (مثال: فصل ۱)" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white outline-none border border-slate-200 dark:border-slate-700" /></div>
+                                                <div className="flex-[1]"><input type="number" value={wizSubAmt} onChange={e=>setWizSubAmt(e.target.value)} placeholder="تعداد کل" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white text-center outline-none border border-slate-200 dark:border-slate-700" /></div>
                                             </div>
-                                            <button 
-                                                onClick={() => {
-                                                    const amt = parseInt(wizSubAmt);
-                                                    if(wizSubName && !isNaN(amt)) {
-                                                        setWizSubjects(prev => [...prev, { id: 's'+Date.now(), name: wizSubName, slides: amt }]);
-                                                        setWizSubName(''); setWizSubAmt('');
-                                                    }
-                                                }} 
-                                                className="w-full py-2 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-400 rounded-xl font-bold text-xs hover:bg-indigo-200 transition-colors"
-                                            >
-                                                + افزودن به لیست
-                                            </button>
+                                            <button onClick={() => { const amt = parseInt(wizSubAmt); if(wizSubName && !isNaN(amt)) { setWizSubjects(prev => [...prev, { id: 's'+Date.now(), name: wizSubName, slides: amt }]); setWizSubName(''); setWizSubAmt(''); } }} className="w-full py-2 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-400 rounded-xl font-bold text-xs hover:bg-indigo-200 transition-colors">+ افزودن به لیست</button>
                                         </div>
 
                                         {wizSubjects.length > 0 && (
                                             <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
                                                 {wizSubjects.map(s => (
                                                     <div key={s.id} className="flex justify-between items-center p-3 bg-slate-100 dark:bg-slate-700/50 rounded-xl text-xs font-bold dark:text-white">
-                                                        <span>{s.name}</span>
-                                                        <div className="flex items-center gap-3">
-                                                            <span className="text-indigo-600 dark:text-indigo-400">{s.slides} واحد</span>
-                                                            <button onClick={()=>setWizSubjects(p=>p.filter(x=>x.id!==s.id))} className="text-rose-500"><Icons.Trash /></button>
-                                                        </div>
+                                                        <span>{s.name}</span><div className="flex items-center gap-3"><span className="text-indigo-600 dark:text-indigo-400">{s.slides} واحد</span><button onClick={()=>setWizSubjects(p=>p.filter(x=>x.id!==s.id))} className="text-rose-500"><Icons.Trash /></button></div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -739,24 +754,7 @@
 
                                         <div className="flex gap-2 pt-2">
                                             <button onClick={() => setWizardStep(2)} className="py-4 px-6 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl font-bold hover:bg-slate-300 transition-colors">بازگشت</button>
-                                            <button 
-                                                onClick={() => {
-                                                    triggerHaptic();
-                                                    // ساخت آبجکت نهایی آزمون و ذخیره در سیستم
-                                                    const finalExam = {
-                                                        id: 'e' + Date.now(),
-                                                        name: wizGoalName,
-                                                        date: wizGoalDate,
-                                                        subjects: wizSubjects
-                                                    };
-                                                    setExams([finalExam]);
-                                                    setHasSeenOnboarding(true);
-                                                    setActiveTab('dashboard'); // فرستادن کاربر به داشبورد آماده
-                                                }} 
-                                                className="flex-1 py-4 bg-emerald-500 text-white rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-colors"
-                                            >
-                                                ساخت برنامه من
-                                            </button>
+                                            <button onClick={() => { triggerHaptic(); const finalExam = { id: 'e' + Date.now(), name: wizGoalName, date: wizGoalDate, subjects: wizSubjects }; setExams([finalExam]); setHasSeenOnboarding(true); setActiveTab('dashboard'); }} className="flex-1 py-4 bg-emerald-500 text-white rounded-2xl font-bold shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition-colors">ساخت برنامه من</button>
                                         </div>
                                     </div>
                                 )}
@@ -855,7 +853,12 @@
                                         </div>
                                         <div className="flex gap-2">
                                             <button onClick={() => { stopTimer(); setModal({ open: false }); }} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300">بعداً</button>
-                                            <button onClick={() => { setTask(modal.data.key, modal.data.amt, 'done'); stopTimer(); setModal({ open: false }); }} className="flex-1 py-3 bg-emerald-500 text-white rounded-xl font-bold">بله، تیک بزن</button>
+                                            <button onClick={() => { 
+                                                setTask(modal.data.key, modal.data.amt, 'done'); 
+                                                setPomodorosCompleted(p => p + 1);
+                                                stopTimer(); 
+                                                setModal({ open: false }); 
+                                            }} className="flex-1 py-3 bg-emerald-500 text-white rounded-xl font-bold">بله، تیک بزن</button>
                                         </div>
                                     </>
                                 )}
@@ -868,7 +871,7 @@
                         <div className="max-w-xl mx-auto flex justify-between items-center">
                             <div>
                                 <h1 className="text-2xl font-black flex items-center gap-2" dir="rtl"><Icons.Flame /> مربی پرو</h1>
-                                <p className="text-[10px] opacity-80 mt-1">ذخیره ابری فعال • {user.email?.split('@')[0] || user.displayName || 'کاربر گوگل'}</p>
+                                <p className="text-[10px] opacity-80 mt-1">ذخیره ابری فعال • {user.displayName || user.email?.split('@')[0]}</p>
                             </div>
                             <button onClick={() => { triggerHaptic(); setDark(!dark); }} className="p-3 bg-white/10 rounded-full">
                                 {dark ? <Icons.Sun /> : <Icons.Moon />}
@@ -877,11 +880,33 @@
                     </div>
 
                     <div className="max-w-xl mx-auto p-4 space-y-6">
+                        
                         {activeTab === 'dashboard' && (
                             <div className="space-y-6 fade-in">
-                                <div className="bg-gradient-to-br from-orange-400 to-rose-500 p-6 rounded-[32px] text-white shadow-xl flex items-center justify-between">
-                                    <div><p className="text-xs font-bold opacity-75 mb-1">مجموع امتیاز (XP)</p><h2 className="text-4xl font-black">{xp}</h2></div>
-                                    <Icons.Flame />
+                                <div className="bg-gradient-to-br from-orange-400 to-rose-500 p-6 rounded-[32px] text-white shadow-xl flex items-center justify-between relative overflow-hidden">
+                                    <div className="absolute right-0 top-0 opacity-10 scale-150 transform translate-x-4 -translate-y-4"><Icons.Flame size={120} /></div>
+                                    <div className="z-10"><p className="text-xs font-bold opacity-75 mb-1">مجموع امتیاز (XP)</p><h2 className="text-4xl font-black">{xp}</h2></div>
+                                    <div className="z-10 bg-white/20 p-3 rounded-2xl backdrop-blur-sm"><Icons.Flame size={32} /></div>
+                                </div>
+
+                                {/* سیستم مدال‌ها */}
+                                <div className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="font-bold dark:text-white flex items-center gap-2"><Icons.Trophy size={16}/> افتخارات شما</h3>
+                                    </div>
+                                    <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                                        {Object.keys(BADGES_INFO).map(bId => {
+                                            const isUnlocked = badges.includes(bId);
+                                            const info = BADGES_INFO[bId];
+                                            return (
+                                                <div key={bId} className={`flex-shrink-0 w-24 p-3 rounded-2xl text-center border transition-all ${isUnlocked ? 'bg-indigo-50 border-indigo-100 dark:bg-indigo-900/30 dark:border-indigo-800/50' : 'bg-slate-50 border-slate-100 dark:bg-slate-900/50 dark:border-slate-800 badge-locked'}`}>
+                                                    <div className="text-2xl mb-2">{info.icon}</div>
+                                                    <h4 className={`text-[10px] font-black mb-1 ${isUnlocked ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500'}`}>{info.title}</h4>
+                                                    <p className="text-[8px] text-slate-500 leading-tight">{info.desc}</p>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
 
                                 <div className="bg-white dark:bg-slate-800 p-5 rounded-3xl border dark:border-slate-700 shadow-sm">
@@ -902,7 +927,7 @@
                                     </div>
                                 </div>
 
-                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت اهداف و پروژه‌ها</h2>
+                                <h2 className="text-xl font-black pr-3 border-r-4 border-indigo-500 dark:text-white">وضعیت اهداف</h2>
                                 {exams.length === 0 ? (
                                     <div className="text-center py-8 bg-white dark:bg-slate-800 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
                                         <p className="text-slate-500 dark:text-slate-400 text-sm font-bold px-6">شما هنوز هیچ هدفی ثبت نکرده‌اید.</p>
@@ -921,6 +946,45 @@
                                         ))}
                                     </div>
                                 )}
+                            </div>
+                        )}
+
+                        {activeTab === 'league' && (
+                            <div className="space-y-6 fade-in">
+                                <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-[32px] text-white shadow-xl flex items-center justify-between">
+                                    <div><h2 className="text-2xl font-black mb-1">لیگ قهرمانان</h2><p className="text-xs font-bold opacity-80">رقابت برترین کاربران مربی پرو</p></div>
+                                    <Icons.Trophy size={40} />
+                                </div>
+
+                                <div className="bg-white dark:bg-slate-800 rounded-3xl border dark:border-slate-700 shadow-sm overflow-hidden">
+                                    {loadingLeague ? (
+                                        <div className="flex justify-center items-center p-10"><div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div></div>
+                                    ) : leaderboard.length === 0 ? (
+                                        <div className="p-10 text-center text-slate-500 text-sm font-bold">هنوز کاربری در لیگ ثبت نشده است.</div>
+                                    ) : (
+                                        <div className="divide-y dark:divide-slate-700">
+                                            {leaderboard.map((u, idx) => {
+                                                const isMe = u.id === user.uid;
+                                                return (
+                                                    <div key={u.id} className={`flex items-center justify-between p-4 transition-colors ${isMe ? 'bg-indigo-50 dark:bg-indigo-900/30' : 'hover:bg-slate-50 dark:hover:bg-slate-700/30'}`}>
+                                                        <div className="flex items-center gap-4">
+                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shadow-sm ${idx === 0 ? 'bg-yellow-400 text-yellow-900' : idx === 1 ? 'bg-slate-300 text-slate-700' : idx === 2 ? 'bg-amber-600 text-amber-100' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
+                                                                {idx + 1}
+                                                            </div>
+                                                            <div>
+                                                                <h4 className={`font-bold text-sm ${isMe ? 'text-indigo-700 dark:text-indigo-400' : 'text-slate-800 dark:text-white'}`}>{u.name} {isMe && '(شما)'}</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                                                            <span className="font-black text-indigo-600 dark:text-indigo-400 text-sm">{u.xp}</span>
+                                                            <span className="text-[10px] text-slate-500">XP</span>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         )}
 
@@ -1064,7 +1128,7 @@
                                 <div className="bg-rose-50 dark:bg-slate-800 rounded-3xl border border-rose-100 dark:border-slate-700 p-4 shadow-sm flex justify-between items-center">
                                     <div>
                                         <h4 className="font-bold text-sm text-rose-900 dark:text-white flex items-center gap-2"><Icons.User size={16}/> حساب کاربری</h4>
-                                        <p className="text-[10px] text-rose-500 dark:text-slate-400 mt-1">{user.email?.split('@')[0] || user.displayName || 'کاربر'}</p>
+                                        <p className="text-[10px] text-rose-500 dark:text-slate-400 mt-1">{user.email?.split('@')[0] || user.displayName || 'کاربر پرو'}</p>
                                     </div>
                                     <button onClick={handleLogout} className="bg-rose-600 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-2">
                                         خروج <Icons.LogOut />
@@ -1127,10 +1191,11 @@
                         )}
                     </div>
 
-                    <div className="fixed bottom-0 left-0 right-0 glass-nav bg-white/90 dark:bg-slate-900/90 border-t dark:border-slate-800 p-4 pb-8 flex justify-around">
+                    <div className="fixed bottom-0 left-0 right-0 glass-nav bg-white/90 dark:bg-slate-900/90 border-t dark:border-slate-800 p-3 pb-8 flex justify-around items-center">
                         <button onClick={() => {triggerHaptic(); setActiveTab('dashboard');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'dashboard' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Dashboard /> <span className="text-[9px] font-bold">داشبورد</span></button>
                         <button onClick={() => {triggerHaptic(); setActiveTab('planner');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'planner' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Planner /> <span className="text-[9px] font-bold">برنامه‌ریز</span></button>
                         <button onClick={() => {triggerHaptic(); setActiveTab('calendar');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'calendar' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Calendar /> <span className="text-[9px] font-bold">تقویم</span></button>
+                        <button onClick={() => {triggerHaptic(); setActiveTab('league');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'league' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Trophy /> <span className="text-[9px] font-bold">لیگ</span></button>
                         <button onClick={() => {triggerHaptic(); setActiveTab('settings');}} className={`transition-all duration-300 flex flex-col items-center gap-1 ${activeTab === 'settings' ? 'text-indigo-600 dark:text-indigo-400 scale-110' : 'text-slate-400 dark:text-slate-500'}`}><Icons.Settings /> <span className="text-[9px] font-bold">تنظیمات</span></button>
                     </div>
                 </div>
