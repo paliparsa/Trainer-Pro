@@ -1078,9 +1078,16 @@
                 const grid = []; let curr = new Date(startSun);
                 const scheduleMap = Object.fromEntries(schedule.map(s => [s.dStr, s]));
 
+                const examsByDate = {};
+                for (let i = 0; i < validExams.length; i++) {
+                    const e = validExams[i];
+                    if (!examsByDate[e.date]) examsByDate[e.date] = [];
+                    examsByDate[e.date].push(e);
+                }
+
                 while (curr <= endSat) {
                     const dStr = getLocalISODate(curr);
-                    const dailyExams = validExams.filter(e => e.date === dStr);
+                    const dailyExams = examsByDate[dStr] || [];
                     const sch = scheduleMap[dStr];
                     const totalSlides = sch ? sch.tasks.reduce((acc, t) => acc + (t.status !== 'skipped' ? t.amt : 0), 0) : 0;
                     
