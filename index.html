@@ -383,7 +383,7 @@
             const [wizSubName, setWizSubName] = useState('');
             const [wizSubAmt, setWizSubAmt] = useState('');
             
-            const [activeTimer, setActiveTimer] = useState({ key: null, timeLeft: 25 * 60, isRunning: false, amt: 0, subName: '' });
+            const [activeTimer, setActiveTimer] = useState({ key: null, timeLeft: 25 * 60, isRunning: false, amt: 0, subName: '', isCustom: false });
             const [missedStreak, setMissedStreak] = useState(0);
             const [rebalance, setRebalance] = useState({ active: false, until: null, nearestExamId: null });
             
@@ -724,7 +724,7 @@
                 } else if (activeTimer.isRunning && activeTimer.timeLeft === 0) {
                     playBeep(); if (navigator.vibrate) navigator.vibrate([100, 100, 100, 100, 300]);
                     setActiveTimer(prev => ({ ...prev, isRunning: false }));
-                    setModal({ open: true, type: 'pomodoro_done', data: { key: activeTimer.key, amt: activeTimer.amt } });
+                    setModal({ open: true, type: 'pomodoro_done', data: { key: activeTimer.key, amt: activeTimer.amt, isCustom: activeTimer.isCustom } });
                 }
                 return () => clearInterval(interval);
             }, [activeTimer.isRunning, activeTimer.timeLeft]);
@@ -855,10 +855,10 @@
             const toggleTimer = (t) => {
                 triggerHaptic();
                 if (activeTimer.key === t.key) setActiveTimer(prev => ({ ...prev, isRunning: !prev.isRunning }));
-                else setActiveTimer({ key: t.key, timeLeft: pomodoroDuration * 60, isRunning: true, amt: t.amt, subName: t.subName });
+                else setActiveTimer({ key: t.key, timeLeft: pomodoroDuration * 60, isRunning: true, amt: t.amt, subName: t.subName, isCustom: t.isCustom });
             };
 
-            const stopTimer = () => { triggerHaptic(); setActiveTimer({ key: null, timeLeft: pomodoroDuration * 60, isRunning: false, amt: 0, subName: '' }); };
+            const stopTimer = () => { triggerHaptic(); setActiveTimer({ key: null, timeLeft: pomodoroDuration * 60, isRunning: false, amt: 0, subName: '', isCustom: false }); };
 
             const setTask = (key, amt, stat, custom = false, e = null) => {
                 triggerHaptic();
@@ -1050,11 +1050,11 @@
                             let load = remD > 0 ? Math.ceil(left[sub.id][phase] / remD) : 0;
                             if (rebalance.active && dStr <= rebalance.until && ex.id !== rebalance.nearestExamId) load = 0;
 
-                            const amt = rec?.isCustom ? rec.amount : Math.min(load, left[sub.id][phase]);
+                            const amt = (rec?.isCustom || rec?.status === 'done' || rec?.status === 'skipped') ? rec.amount : Math.min(load, left[sub.id][phase]);
 
                             if (rec?.status === 'done' || rec?.status === 'skipped' || (!rec?.isCustom && amt > 0) || (rec?.isCustom && (rec.amount > 0 || rec.status === 'missed'))) {
-                                tasks.push({ key, exName: ex.name, subName: sub.name, phase, amt, status: rec?.status || 'pending', isCustom: rec?.isCustom, note: rec?.note });
-                                if (rec?.status === 'done' || (!rec?.status && amt > 0)) left[sub.id][phase] -= amt;
+                                tasks.push({ key, exName: ex.name, subName: sub.name, phase, amt, status: rec?.status || 'pending', isCustom: (rec?.isCustom || rec?.status === 'done' || rec?.status === 'skipped'), note: rec?.note });
+                                if (rec?.status === 'done' || (!rec?.status && dStr >= todayISO && amt > 0)) left[sub.id][phase] -= amt;
                             }
                         });
                     });
@@ -1747,7 +1747,7 @@
                                         <div className="flex gap-2">
                                             <button onClick={() => { stopTimer(); setModal({ open: false }); }} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 active:scale-95 transition-transform">بعداً</button>
                                             <button onClick={(e) => { 
-                                                setTask(modal.data.key, modal.data.amt, 'done', false, e); 
+                                                setTask(modal.data.key, modal.data.amt, 'done', modal.data.isCustom, e);
                                                 setPomodorosCompleted(p => p + 1);
                                                 setDailyPomodoros(prev => prev.date === todayISO ? { date: todayISO, count: prev.count + 1 } : { date: todayISO, count: 1 });
                                                 stopTimer(); 
@@ -2222,7 +2222,7 @@
                                                                 </div>
                                                             )}
                                                             <div className="flex gap-2">
-                                                                <button onClick={(e) => setTask(t.key, t.amt, 'done', false, e)} className="flex-[2] py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-[11px] font-bold shadow-sm shadow-emerald-500/20 active:scale-95 transition-all">انجام شد</button>
+                                                                <button onClick={(e) => setTask(t.key, t.amt, 'done', t.isCustom, e)} className="flex-[2] py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-[11px] font-bold shadow-sm shadow-emerald-500/20 active:scale-95 transition-all">انجام شد</button>
                                                                 <button onClick={() => toggleTimer(t)} className={`flex items-center justify-center gap-1 flex-[2] py-2.5 rounded-xl text-[11px] font-bold active:scale-95 transition-all shadow-sm ${activeTimer.key === t.key ? (activeTimer.isRunning ? 'bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-400 shadow-orange-500/20' : 'bg-orange-500 text-white shadow-orange-500/20') : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                                                                     {activeTimer.key === t.key ? (activeTimer.isRunning ? <Icons.Pause size={12} /> : <Icons.Play size={12} />) : <Icons.Timer size={12} />}
                                                                     <span dir="ltr" className="tracking-widest">{activeTimer.key === t.key ? formatTime(activeTimer.timeLeft) : `${pomodoroDuration}:00`}</span>
@@ -2232,7 +2232,7 @@
                                                                         <Icons.Stop size={12} />
                                                                     </button>
                                                                 ) : (
-                                                                    <button onClick={() => setTask(t.key, t.amt, 'skipped')} className="py-2.5 px-3 flex-[1] bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl flex items-center justify-center active:scale-95 transition-all" title="رد شدن از این مبحث (موکول به فردا)">
+                                                                    <button onClick={() => setTask(t.key, t.amt, 'skipped', t.isCustom)} className="py-2.5 px-3 flex-[1] bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl flex items-center justify-center active:scale-95 transition-all" title="رد شدن از این مبحث (موکول به فردا)">
                                                                         <Icons.Skip size={14} />
                                                                     </button>
                                                                 )}
