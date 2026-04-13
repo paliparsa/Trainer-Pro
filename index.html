@@ -323,19 +323,18 @@
 
         const TYPEWRITER_WORDS = ['کنکور', 'آزمون تخصص', 'آیلتس', 'برنامه‌نویسی', 'زبان جدید', 'رشد فردی'];
 
-        function App() {
+        function usePlannerData() {
+            const todayISO = getLocalISODate(new Date());
+
             const [themeColor, setThemeColor] = useState('indigo');
             const [customColor, setCustomColor] = useState('#6366f1');
-            const currentThemeMap = themeColor === 'custom' 
-                ? generatePaletteFromHex(customColor) 
-                : (THEMES[themeColor] || THEMES.indigo);
 
             const [networkError, setNetworkError] = useState(false);
             const [detailedError, setDetailedError] = useState(''); 
             const [authLoading, setAuthLoading] = useState(true);
             const [user, setUser] = useState(null);
             const [isDbReady, setIsDbReady] = useState(false);
-            
+
             // PWA & Landing States
             const [deferredPrompt, setDeferredPrompt] = useState(null);
             const [showPwaModal, setShowPwaModal] = useState(false); 
@@ -362,17 +361,17 @@
             const [streak, setStreak] = useState({ count: 0, lastDate: '' });
             const [brainDump, setBrainDump] = useState('');
             const [noiseType, setNoiseType] = useState('none');
-            
+
             // Gamification & Social States
             const [badges, setBadges] = useState([]);
             const [pomodorosCompleted, setPomodorosCompleted] = useState(0);
             const [dailyPomodoros, setDailyPomodoros] = useState({ date: getLocalISODate(new Date()), count: 0 });
             const [lastWrapUpDate, setLastWrapUpDate] = useState('');
-            
+
             const [rawLeaderboard, setRawLeaderboard] = useState([]);
             const [loadingLeague, setLoadingLeague] = useState(false);
             const [leagueTab, setLeagueTab] = useState('global'); 
-            
+
             // Profile State
             const [profile, setProfile] = useState({ name: '', bio: '', avatar: '👦', friendCode: '', friends: [] });
 
@@ -382,14 +381,13 @@
             const [wizSubjects, setWizSubjects] = useState([]);
             const [wizSubName, setWizSubName] = useState('');
             const [wizSubAmt, setWizSubAmt] = useState('');
-            
+
             const [activeTimer, setActiveTimer] = useState({ key: null, timeLeft: 25 * 60, isRunning: false, amt: 0, subName: '' });
             const [missedStreak, setMissedStreak] = useState(0);
             const [rebalance, setRebalance] = useState({ active: false, until: null, nearestExamId: null });
-            
-            const todayISO = getLocalISODate(new Date());
+
             const [selectedCalDate, setSelectedCalDate] = useState(todayISO);
-            
+
             const [modal, setModal] = useState({ open: false, type: '', data: {} });
             const [modalError, setModalError] = useState('');
             const [val1, setVal1] = useState('');
@@ -397,6 +395,123 @@
 
             // Notification / Cheer system
             const [cheerAlert, setCheerAlert] = useState(null);
+
+            return {
+                themeColor, setThemeColor,
+                customColor, setCustomColor,
+                networkError, setNetworkError,
+                detailedError, setDetailedError,
+                authLoading, setAuthLoading,
+                user, setUser,
+                isDbReady, setIsDbReady,
+                deferredPrompt, setDeferredPrompt,
+                showPwaModal, setShowPwaModal,
+                typewriterText, setTypewriterText,
+                isDeletingTxt, setIsDeletingTxt,
+                txtIdx, setTxtIdx,
+                showAuthForm, setShowAuthForm,
+                hasSeenOnboarding, setHasSeenOnboarding,
+                authMode, setAuthMode,
+                username, setUsername,
+                password, setPassword,
+                authError, setAuthError,
+                activeTab, setActiveTab,
+                startDate, setStartDate,
+                exams, setExams,
+                records, setRecords,
+                skipped, setSkipped,
+                dark, setDark,
+                pomodoroDuration, setPomodoroDuration,
+                streak, setStreak,
+                brainDump, setBrainDump,
+                noiseType, setNoiseType,
+                badges, setBadges,
+                pomodorosCompleted, setPomodorosCompleted,
+                dailyPomodoros, setDailyPomodoros,
+                lastWrapUpDate, setLastWrapUpDate,
+                rawLeaderboard, setRawLeaderboard,
+                loadingLeague, setLoadingLeague,
+                leagueTab, setLeagueTab,
+                profile, setProfile,
+                wizardStep, setWizardStep,
+                wizGoalName, setWizGoalName,
+                wizGoalDate, setWizGoalDate,
+                wizSubjects, setWizSubjects,
+                wizSubName, setWizSubName,
+                wizSubAmt, setWizSubAmt,
+                activeTimer, setActiveTimer,
+                missedStreak, setMissedStreak,
+                rebalance, setRebalance,
+                selectedCalDate, setSelectedCalDate,
+                modal, setModal,
+                modalError, setModalError,
+                val1, setVal1,
+                val2, setVal2,
+                cheerAlert, setCheerAlert
+            };
+        }
+
+        function App() {
+            const {
+                themeColor, setThemeColor,
+                customColor, setCustomColor,
+                networkError, setNetworkError,
+                detailedError, setDetailedError,
+                authLoading, setAuthLoading,
+                user, setUser,
+                isDbReady, setIsDbReady,
+                deferredPrompt, setDeferredPrompt,
+                showPwaModal, setShowPwaModal,
+                typewriterText, setTypewriterText,
+                isDeletingTxt, setIsDeletingTxt,
+                txtIdx, setTxtIdx,
+                showAuthForm, setShowAuthForm,
+                hasSeenOnboarding, setHasSeenOnboarding,
+                authMode, setAuthMode,
+                username, setUsername,
+                password, setPassword,
+                authError, setAuthError,
+                activeTab, setActiveTab,
+                startDate, setStartDate,
+                exams, setExams,
+                records, setRecords,
+                skipped, setSkipped,
+                dark, setDark,
+                pomodoroDuration, setPomodoroDuration,
+                streak, setStreak,
+                brainDump, setBrainDump,
+                noiseType, setNoiseType,
+                badges, setBadges,
+                pomodorosCompleted, setPomodorosCompleted,
+                dailyPomodoros, setDailyPomodoros,
+                lastWrapUpDate, setLastWrapUpDate,
+                rawLeaderboard, setRawLeaderboard,
+                loadingLeague, setLoadingLeague,
+                leagueTab, setLeagueTab,
+                profile, setProfile,
+                wizardStep, setWizardStep,
+                wizGoalName, setWizGoalName,
+                wizGoalDate, setWizGoalDate,
+                wizSubjects, setWizSubjects,
+                wizSubName, setWizSubName,
+                wizSubAmt, setWizSubAmt,
+                activeTimer, setActiveTimer,
+                missedStreak, setMissedStreak,
+                rebalance, setRebalance,
+                selectedCalDate, setSelectedCalDate,
+                modal, setModal,
+                modalError, setModalError,
+                val1, setVal1,
+                val2, setVal2,
+                cheerAlert, setCheerAlert
+            } = usePlannerData();
+
+            const currentThemeMap = themeColor === 'custom'
+                ? generatePaletteFromHex(customColor)
+                : (THEMES[themeColor] || THEMES.indigo);
+
+            const todayISO = getLocalISODate(new Date());
+
             const lastCheerTimeRef = useRef(0);
 
             const audioCtxRef = useRef(null);
