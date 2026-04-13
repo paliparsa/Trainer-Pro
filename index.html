@@ -914,6 +914,26 @@
                 } catch(e) { alert("خطا در اشتراک گذاری"); }
             };
 
+            const handleShareAllPlans = async () => {
+                triggerHaptic();
+                const shareCode = 'ALL-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+                const allExamsData = exams.filter(e => !e.archived).map(ex => ({
+                    name: ex.name,
+                    subjects: ex.subjects
+                }));
+                if (allExamsData.length === 0) {
+                    alert("هیچ هدف فعالی برای اشتراک‌گذاری وجود ندارد.");
+                    return;
+                }
+                try {
+                    const { doc, setDoc } = window.FirebaseAPI;
+                    await setDoc(doc(window.db, 'shared_plans', shareCode), {
+                        isAll: true, exams: allExamsData, authorName: profile.name, createdAt: new Date().toISOString()
+                    });
+                    setModal({ open: true, type: 'share_success', data: { shareCode, name: "کل برنامه‌ها" } });
+                } catch(e) { alert("خطا در اشتراک گذاری"); }
+            };
+
             const handleImportPlan = async () => {
                 setModalError('');
                 const code = val1.trim().toUpperCase();
@@ -923,11 +943,19 @@
                     const docSnap = await getDoc(doc(window.db, 'shared_plans', code));
                     if (docSnap.exists()) {
                         const planData = docSnap.data();
-                        const newExam = {
-                            id: 'e' + Date.now(), name: planData.name + ' (کپی)', date: '', archived: false,
-                            subjects: planData.subjects.map(s => ({ ...s, id: 's' + Math.random().toString(36).substring(2,8) }))
-                        };
-                        setExams(prev => [...prev, newExam]);
+                        if (planData.isAll) {
+                            const newExams = planData.exams.map((ex, idx) => ({
+                                id: 'e' + Date.now() + idx, name: ex.name + ' (کپی)', date: '', archived: false,
+                                subjects: ex.subjects.map(s => ({ ...s, id: 's' + Math.random().toString(36).substring(2,8) }))
+                            }));
+                            setExams(prev => [...prev, ...newExams]);
+                        } else {
+                            const newExam = {
+                                id: 'e' + Date.now(), name: planData.name + ' (کپی)', date: '', archived: false,
+                                subjects: planData.subjects.map(s => ({ ...s, id: 's' + Math.random().toString(36).substring(2,8) }))
+                            };
+                            setExams(prev => [...prev, newExam]);
+                        }
                         setModal({ open: false }); setVal1('');
                     } else setModalError('برنامه‌ای با این کد یافت نشد!');
                 } catch(e) { setModalError('خطا در ارتباط با سرور'); }
@@ -2421,6 +2449,7 @@
                                 <div className="flex justify-between items-center mt-8 mb-2 px-2 border-b-2 border-primary-500 dark:border-primary-500/50 pb-2">
                                     <h3 className="text-sm font-black dark:text-white">اهداف و پروژه‌ها</h3>
                                     <div className="flex gap-2">
+                                        <button onClick={handleShareAllPlans} className="text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 px-3 py-1.5 rounded-lg font-bold transition-transform hover:scale-105 active:scale-95 flex items-center gap-1"><Icons.Share size={14}/> اشتراک همه</button>
                                         <button onClick={() => {setModalError(''); setVal1(''); setModal({open:true, type:'import_plan'});}} className="text-xs bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg font-bold transition-transform hover:scale-105 active:scale-95 flex items-center gap-1"><Icons.Download size={14}/> کپی</button>
                                         <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add_exam'});}} className="text-xs bg-primary-600 text-white px-3 py-1.5 rounded-lg font-bold shadow-md shadow-primary-500/30 transition-transform hover:scale-105 active:scale-95 flex items-center gap-1"><Icons.Plus size={14}/> جدید</button>
                                     </div>
@@ -2435,9 +2464,15 @@
                                 {exams.filter(e=>!e.archived).map(ex => (
                                     <div key={ex.id} className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm transition-all hover:shadow-md">
                                         <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-b dark:border-slate-700 flex justify-between items-center">
-                                            <div>
+                                            <div className="flex-1 pr-2">
                                                 <h4 className="font-bold text-sm dark:text-white flex items-center gap-2">
-                                                    {ex.name} 
+                                                    <input 
+                                                        type="text" 
+                                                        value={ex.name} 
+                                                        onChange={(e) => setExams(p => p.map(x => x.id === ex.id ? { ...x, name: e.target.value } : x))}
+                                                        className="bg-transparent border-none outline-none w-full"
+                                                        placeholder="نام هدف"
+                                                    />
                                                 </h4>
                                                 <div className={`text-[10px] ${!ex.date ? 'text-rose-500 dark:text-rose-400 font-bold' : 'text-slate-500 dark:text-slate-400'} mt-1 flex items-center gap-1`}>
                                                     تاریخ آزمون/هدف: 
@@ -2450,7 +2485,7 @@
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 shrink-0">
                                                 <button onClick={() => handleSharePlan(ex)} className="bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 p-1.5 rounded-lg active:scale-95 transition-transform" title="اشتراک گذاری الگو"><Icons.Share /></button>
                                                 <button onClick={() => setExams(p => p.map(e => e.id === ex.id ? {...e, archived: true} : e))} className="bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 p-1.5 rounded-lg active:scale-95 transition-transform" title="بایگانی کردن هدف"><Icons.Archive /></button>
                                                 <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add_subject', data:{exId:ex.id}});}} className="bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400 px-2 py-1.5 rounded-lg text-[10px] font-bold active:scale-95 transition-transform">+ زیرمبحث</button>
@@ -2460,9 +2495,18 @@
                                         <div className="p-2 space-y-1">
                                             {ex.subjects.length === 0 && <p className="text-center text-[10px] text-slate-400 py-3">زیرمبحثی اضافه نشده است.</p>}
                                             {ex.subjects.map(s => (
-                                                <div key={s.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl transition-colors">
-                                                    <span className="text-[11px] dark:text-white truncate pr-2 font-bold">{s.name}</span>
-                                                    <div className="flex items-center gap-2"><input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-primary-600 dark:text-primary-400 p-1.5 outline-none" /><button onClick={() => setExams(p => p.map(e => e.id===ex.id ? {...e, subjects:e.subjects.filter(x=>x.id!==s.id)} : e))} className="text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 p-1.5 rounded-lg transition-all active:scale-95"><Icons.Trash /></button></div>
+                                                <div key={s.id} className="flex justify-between items-center p-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl transition-colors gap-2">
+                                                    <input 
+                                                        type="text" 
+                                                        value={s.name} 
+                                                        onChange={(e) => setExams(p => p.map(x => x.id === ex.id ? { ...x, subjects: x.subjects.map(sub => sub.id === s.id ? { ...sub, name: e.target.value } : sub) } : x))}
+                                                        className="text-[11px] dark:text-white bg-transparent border-none outline-none font-bold flex-1"
+                                                        placeholder="نام مبحث"
+                                                    />
+                                                    <div className="flex items-center gap-2 shrink-0">
+                                                        <input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-primary-600 dark:text-primary-400 p-1.5 outline-none" />
+                                                        <button onClick={() => setExams(p => p.map(e => e.id===ex.id ? {...e, subjects:e.subjects.filter(x=>x.id!==s.id)} : e))} className="text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 p-1.5 rounded-lg transition-all active:scale-95"><Icons.Trash /></button>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
