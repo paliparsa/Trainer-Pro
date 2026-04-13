@@ -39,13 +39,14 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithPopup, sendPasswordResetEmail, updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, limit, getDocs, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         window.FirebaseAPI = {
             initializeApp, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
             onAuthStateChanged, signOut, getFirestore, doc, setDoc, getDoc,
-            collection, query, orderBy, limit, getDocs, GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithPopup, onSnapshot, updateDoc, sendPasswordResetEmail
+            collection, query, orderBy, limit, getDocs, GoogleAuthProvider, signInWithPopup, signInAnonymously, linkWithPopup, onSnapshot, updateDoc, sendPasswordResetEmail,
+            updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider
         };
     </script>
 
@@ -257,6 +258,49 @@
             violet: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95' }
         };
 
+        // Generate a full color palette from a single hex color (for custom colors)
+        const generatePaletteFromHex = (hex) => {
+            const hexToRgb = (h) => {
+                const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+                return [r,g,b];
+            };
+            const rgbToHsl = ([r,g,b]) => {
+                r/=255; g/=255; b/=255;
+                const max=Math.max(r,g,b), min=Math.min(r,g,b);
+                let h,s,l=(max+min)/2;
+                if(max===min){h=s=0;}else{
+                    const d=max-min; s=l>0.5?d/(2-max-min):d/(max+min);
+                    switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break;}
+                    h/=6;
+                }
+                return [h*360,s*100,l*100];
+            };
+            const hslToHex = (h,s,l) => {
+                h/=360; s/=100; l/=100;
+                let r,g,b;
+                if(s===0){r=g=b=l;}else{
+                    const hue2rgb=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;};
+                    const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q;
+                    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+                }
+                const toHex=x=>Math.round(x*255).toString(16).padStart(2,'0');
+                return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+            };
+            const [h,s] = rgbToHsl(hexToRgb(hex));
+            return {
+                50: hslToHex(h,Math.min(s,60),97),
+                100: hslToHex(h,Math.min(s,65),93),
+                200: hslToHex(h,Math.min(s,70),87),
+                300: hslToHex(h,Math.min(s,75),76),
+                400: hslToHex(h,Math.min(s,82),65),
+                500: hslToHex(h,s,55),
+                600: hslToHex(h,Math.min(s+5,100),47),
+                700: hslToHex(h,Math.min(s+8,100),40),
+                800: hslToHex(h,Math.min(s+10,100),32),
+                900: hslToHex(h,Math.min(s+10,100),25),
+            };
+        };
+
         const AVATARS = ['🧑‍⚕️', '👩‍⚕️', '👨‍🎓', '👩‍🎓', '👨‍💻', '👩‍💻', '🥷', '🦸‍♂️', '🧙‍♂️', '🧛‍♀️', '👦', '👧'];
 
         const BADGES_INFO = {
@@ -281,7 +325,10 @@
 
         function App() {
             const [themeColor, setThemeColor] = useState('indigo');
-            const currentThemeMap = THEMES[themeColor] || THEMES.indigo;
+            const [customColor, setCustomColor] = useState('#6366f1');
+            const currentThemeMap = themeColor === 'custom' 
+                ? generatePaletteFromHex(customColor) 
+                : (THEMES[themeColor] || THEMES.indigo);
 
             const [networkError, setNetworkError] = useState(false);
             const [detailedError, setDetailedError] = useState(''); 
@@ -492,6 +539,7 @@
                             setDark(data.dark || false);
                             setPomodoroDuration(data.pomodoroDuration || 25);
                             setThemeColor(data.themeColor || 'indigo');
+                            setCustomColor(data.customColor || '#6366f1');
                             setStreak(data.streak || { count: 0, lastDate: '' });
                             setBrainDump(data.brainDump || '');
                             setHasSeenOnboarding(data.hasSeenOnboarding || false);
@@ -503,7 +551,7 @@
                             setStartDate(''); setExams([]); setRecords({}); setSkipped([]);
                             setMissedStreak(0); setRebalance({ active: false, until: null, nearestExamId: null });
                             setHasSeenOnboarding(false); setBadges([]); setPomodorosCompleted(0); setPomodoroDuration(25);
-                            setThemeColor('indigo'); setStreak({ count: 0, lastDate: '' }); setBrainDump('');
+                            setThemeColor('indigo'); setCustomColor('#6366f1'); setStreak({ count: 0, lastDate: '' }); setBrainDump('');
                             setDailyPomodoros({ date: todayISO, count: 0 }); setLastWrapUpDate('');
                             setWizardStep(1); 
                         }
@@ -524,7 +572,7 @@
                     try {
                         await setDoc(doc(window.db, 'users', user.uid, 'data', 'general_planner_v5'), {
                             startDate, exams, records, skipped, missedStreak, rebalance, dark, hasSeenOnboarding, badges, 
-                            pomodorosCompleted, pomodoroDuration, themeColor, streak, brainDump, dailyPomodoros, lastWrapUpDate,
+                            pomodorosCompleted, pomodoroDuration, themeColor, customColor, streak, brainDump, dailyPomodoros, lastWrapUpDate,
                             lastUpdated: new Date().toISOString()
                         }, { merge: true });
 
@@ -537,7 +585,7 @@
                 };
                 const debounceTimer = setTimeout(saveData, 500);
                 return () => clearTimeout(debounceTimer);
-            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, hasSeenOnboarding, badges, pomodorosCompleted, pomodoroDuration, themeColor, streak, brainDump, profile, dailyPomodoros, lastWrapUpDate, isDbReady, user]);
+            }, [startDate, exams, records, skipped, dark, missedStreak, rebalance, hasSeenOnboarding, badges, pomodorosCompleted, pomodoroDuration, themeColor, customColor, streak, brainDump, profile, dailyPomodoros, lastWrapUpDate, isDbReady, user]);
 
             const xp = useMemo(() => Object.values(records).reduce((a, b) => b.status === 'done' ? a + b.amount : a, 0), [records]);
             
@@ -732,6 +780,47 @@
                     const { signInAnonymously } = window.FirebaseAPI;
                     await signInAnonymously(window.auth);
                 } catch (err) { setAuthError('ورود مهمان در فایربیس فعال نیست یا خطایی رخ داد: ' + err.message); }
+            };
+
+            const handleChangeCredentials = async () => {
+                setModalError('');
+                const { reauthenticateWithCredential, EmailAuthProvider, updateEmail, updatePassword } = window.FirebaseAPI;
+                
+                const currentPassword = val1;
+                const newUsername = val2;
+                const newPassword = modal.data?.newPassword || '';
+
+                if (!currentPassword) return setModalError('رمز عبور فعلی را وارد کنید');
+
+                const currentEmail = user.email;
+                if (!currentEmail) return setModalError('این حساب از طریق گوگل وارد شده و قابل ویرایش مستقیم نیست.');
+
+                const credential = EmailAuthProvider.credential(currentEmail, currentPassword);
+
+                try {
+                    await reauthenticateWithCredential(user, credential);
+
+                    if (newUsername && newUsername.trim()) {
+                        const newEmail = newUsername.includes('@') ? newUsername.trim().toLowerCase() : newUsername.trim().toLowerCase() + '@planner.local';
+                        if (newEmail !== currentEmail) {
+                            await updateEmail(user, newEmail);
+                        }
+                    }
+
+                    if (newPassword && newPassword.length >= 6) {
+                        await updatePassword(user, newPassword);
+                    } else if (newPassword && newPassword.length > 0) {
+                        return setModalError('رمز عبور جدید باید حداقل ۶ کاراکتر باشد');
+                    }
+
+                    setModal({ open: false }); setVal1(''); setVal2('');
+                    alert('✅ اطلاعات حساب با موفقیت بروزرسانی شد.');
+                } catch (err) {
+                    if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') setModalError('رمز عبور فعلی اشتباه است!');
+                    else if (err.code === 'auth/email-already-in-use') setModalError('این نام کاربری قبلاً توسط کاربر دیگری استفاده شده!');
+                    else if (err.code === 'auth/requires-recent-login') setModalError('لطفاً ابتدا از حساب خارج شوید و دوباره وارد شوید.');
+                    else setModalError('خطا: ' + err.message);
+                }
             };
 
             const handleLinkGoogle = async () => {
@@ -1560,6 +1649,47 @@
                                         </div>
                                     </>
                                 )}
+                                {modal.type === 'change_credentials' && (
+                                    <>
+                                        <h3 className="text-xl font-bold mb-2 dark:text-white text-center">تغییر اطلاعات ورود</h3>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400 text-center mb-5">برای تأیید هویت، ابتدا رمز عبور فعلی را وارد کنید.</p>
+                                        
+                                        <label className="block text-xs font-bold text-slate-500 mb-1 px-1">نام کاربری جدید (اختیاری)</label>
+                                        <input 
+                                            value={val2} 
+                                            onChange={e => setVal2(e.target.value)} 
+                                            placeholder={`نام کاربری فعلی: ${user?.email?.replace('@planner.local','')}`}
+                                            className="w-full p-3 mb-3 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none text-sm"
+                                        />
+                                        
+                                        <label className="block text-xs font-bold text-slate-500 mb-1 px-1">رمز عبور جدید (اختیاری، حداقل ۶ کاراکتر)</label>
+                                        <input 
+                                            type="password"
+                                            value={modal.data?.newPassword || ''} 
+                                            onChange={e => setModal(m => ({...m, data: {...m.data, newPassword: e.target.value}}))} 
+                                            placeholder="خالی = بدون تغییر"
+                                            className="w-full p-3 mb-4 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none text-sm"
+                                        />
+                                        
+                                        <div className="border-t dark:border-slate-700 pt-4 mt-1">
+                                            <label className="block text-xs font-bold text-rose-500 mb-1 px-1">رمز عبور فعلی (برای تأیید هویت) *</label>
+                                            <input 
+                                                type="password"
+                                                value={val1} 
+                                                onChange={e => setVal1(e.target.value)} 
+                                                placeholder="رمز عبور فعلی خود را وارد کنید"
+                                                className="w-full p-3 mb-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-900/40 rounded-xl dark:text-white outline-none text-sm"
+                                            />
+                                        </div>
+
+                                        {modalError && <p className="text-xs text-rose-500 text-center mb-3 bg-rose-50 dark:bg-rose-900/20 rounded-xl p-2">{modalError}</p>}
+                                        
+                                        <div className="flex gap-2">
+                                            <button onClick={() => { setModal({ open: false }); setVal1(''); setVal2(''); }} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 active:scale-95 transition-transform">لغو</button>
+                                            <button onClick={handleChangeCredentials} className="flex-1 py-3 bg-primary-600 text-white rounded-xl font-bold active:scale-95 transition-transform">ذخیره تغییرات</button>
+                                        </div>
+                                    </>
+                                )}
                                 {modal.type === 'confirm' && (
                                     <>
                                         <h3 className="text-xl font-bold mb-2 text-rose-600">مطمئن هستید؟</h3>
@@ -2216,13 +2346,75 @@
                                         <Icons.Coffee size={24} />
                                         <span className="font-bold text-[11px]">مرخصی و تعویق ددلاین‌ها</span>
                                     </button>
-                                    <div className="bg-slate-50 dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col items-center justify-center gap-2">
-                                        <span className="font-bold text-[11px] text-slate-700 dark:text-white mb-1">تم رنگی اپلیکیشن</span>
-                                        <div className="flex gap-2">
-                                            {Object.keys(THEMES).map(color => (
-                                                <button key={color} onClick={() => setThemeColor(color)} style={{backgroundColor: THEMES[color][500]}} className={`w-6 h-6 rounded-full transition-transform active:scale-95 ${themeColor === color ? 'scale-125 ring-2 ring-offset-2 dark:ring-offset-slate-800 ring-slate-400' : 'opacity-70 hover:opacity-100'}`}></button>
-                                            ))}
+                                    <div className="bg-slate-50 dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col items-center justify-center gap-3">
+                                        <span className="font-bold text-[11px] text-slate-700 dark:text-white">تم رنگی اپلیکیشن</span>
+                                        {/* Color Wheel - 7 colors arranged in a circle */}
+                                        <div className="relative w-24 h-24">
+                                            {[
+                                                { color: 'indigo', hex: '#6366f1', angle: 0 },
+                                                { color: 'violet', hex: '#8b5cf6', angle: 51 },
+                                                { color: '#ec4899', hex: '#ec4899', angle: 102 },
+                                                { color: 'rose', hex: '#f43f5e', angle: 153 },
+                                                { color: '#f97316', hex: '#f97316', angle: 204 },
+                                                { color: '#eab308', hex: '#eab308', angle: 255 },
+                                                { color: 'emerald', hex: '#10b981', angle: 306 },
+                                            ].map(({ color, hex, angle }) => {
+                                                const rad = (angle - 90) * Math.PI / 180;
+                                                const r = 34;
+                                                const x = 50 + r * Math.cos(rad);
+                                                const y = 50 + r * Math.sin(rad);
+                                                const isSelected = themeColor === color || (themeColor === 'custom' && customColor === hex);
+                                                return (
+                                                    <button
+                                                        key={color}
+                                                        onClick={() => {
+                                                            triggerHaptic();
+                                                            if (['indigo','emerald','rose','violet'].includes(color)) {
+                                                                setThemeColor(color);
+                                                            } else {
+                                                                setCustomColor(hex);
+                                                                setThemeColor('custom');
+                                                            }
+                                                        }}
+                                                        style={{
+                                                            backgroundColor: hex,
+                                                            position: 'absolute',
+                                                            left: `${x}%`,
+                                                            top: `${y}%`,
+                                                            transform: 'translate(-50%, -50%)',
+                                                            width: isSelected ? '22px' : '16px',
+                                                            height: isSelected ? '22px' : '16px',
+                                                            borderRadius: '50%',
+                                                            border: isSelected ? '2px solid white' : '2px solid transparent',
+                                                            boxShadow: isSelected ? `0 0 0 2px ${hex}` : 'none',
+                                                            transition: 'all 0.2s ease',
+                                                        }}
+                                                    />
+                                                );
+                                            })}
+                                            {/* Center: custom color input */}
+                                            <label 
+                                                title="رنگ دلخواه"
+                                                style={{
+                                                    position: 'absolute', left: '50%', top: '50%',
+                                                    transform: 'translate(-50%, -50%)',
+                                                    width: '28px', height: '28px', borderRadius: '50%',
+                                                    background: themeColor === 'custom' ? customColor : 'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)',
+                                                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                    border: themeColor === 'custom' ? `3px solid white` : '2px solid rgba(255,255,255,0.6)',
+                                                    boxShadow: themeColor === 'custom' ? `0 0 0 2px ${customColor}` : '0 0 0 1px rgba(0,0,0,0.2)',
+                                                    transition: 'all 0.2s ease',
+                                                }}
+                                            >
+                                                <input 
+                                                    type="color" 
+                                                    value={customColor}
+                                                    onChange={(e) => { setCustomColor(e.target.value); setThemeColor('custom'); }}
+                                                    style={{ opacity: 0, position: 'absolute', width: '100%', height: '100%', cursor: 'pointer', border: 'none' }}
+                                                />
+                                            </label>
                                         </div>
+                                        <span className="text-[9px] text-slate-400 dark:text-slate-500">مرکز = رنگ دلخواه</span>
                                     </div>
                                 </div>
 
@@ -2294,6 +2486,15 @@
                                             </div>
                                         ))}
                                     </>
+                                )}
+
+                                {/* دکمه تغییر نام کاربری و رمز عبور - فقط برای کاربران با ایمیل */}
+                                {!user?.isAnonymous && user?.providerData?.some(p => p.providerId === 'password') && (
+                                    <button 
+                                        onClick={() => { setModalError(''); setVal1(''); setVal2(''); setModal({open:true, type:'change_credentials', data:{newPassword:''}}); }} 
+                                        className="w-full py-4 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 border border-indigo-100 dark:border-indigo-900/30">
+                                        <Icons.Edit /> تغییر نام کاربری یا رمز عبور
+                                    </button>
                                 )}
 
                                 <button onClick={requestLogout} className="w-full mt-8 py-4 bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-95 hover:bg-rose-100 dark:hover:bg-rose-900/40">
