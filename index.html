@@ -382,6 +382,7 @@
             const [wizSubjects, setWizSubjects] = useState([]);
             const [wizSubName, setWizSubName] = useState('');
             const [wizSubAmt, setWizSubAmt] = useState('');
+            const [wizSubTimes, setWizSubTimes] = useState('3');
             
             const [activeTimer, setActiveTimer] = useState({ key: null, timeLeft: 25 * 60, isRunning: false, amt: 0, subName: '', isCustom: false });
             const [missedStreak, setMissedStreak] = useState(0);
@@ -394,6 +395,7 @@
             const [modalError, setModalError] = useState('');
             const [val1, setVal1] = useState('');
             const [val2, setVal2] = useState('');
+            const [val3, setVal3] = useState('');
 
             // Notification / Cheer system
             const [cheerAlert, setCheerAlert] = useState(null);
@@ -888,6 +890,7 @@
 
             const undoTask = (key) => { triggerHaptic(); setRecords(prev => { const n = { ...prev }; delete n[key]; return n; }); };
             const handleUpdateSlide = (exId, subId, slides) => { setExams(prev => prev.map(ex => ex.id === exId ? { ...ex, subjects: ex.subjects.map(s => s.id === subId ? { ...s, slides: parseInt(slides) || 0 } : s) } : ex)); };
+            const handleUpdateTimes = (exId, subId, times) => { setExams(prev => prev.map(ex => ex.id === exId ? { ...ex, subjects: ex.subjects.map(s => s.id === subId ? { ...s, times: parseInt(times) || 1 } : s) } : ex)); };
 
             const handleVacation = () => {
                 const days = parseInt(val1);
@@ -993,7 +996,7 @@
                 let finalSubs = [...wizSubjects];
                 if (wizSubName && wizSubAmt) {
                     const amt = parseInt(wizSubAmt);
-                    if (!isNaN(amt)) finalSubs.push({ id: 's'+Date.now(), name: wizSubName, slides: amt });
+                    const t = parseInt(wizSubTimes) || 3; if (!isNaN(amt)) finalSubs.push({ id: 's'+Date.now(), name: wizSubName, slides: amt, times: t });
                 }
                 const finalExam = { id: 'e' + Date.now(), name: wizGoalName, date: wizGoalDate, subjects: finalSubs, archived: false }; 
                 setExams([finalExam]); setHasSeenOnboarding(true);
@@ -1011,7 +1014,11 @@
             const schedule = useMemo(() => {
                 if (!startDate || !hasValidExams) return []; 
                 const plan = []; const left = {};
-                exams.forEach(ex => ex.subjects.forEach(s => left[s.id] = { 1: s.slides, 2: s.slides, 3: s.slides }));
+                exams.forEach(ex => ex.subjects.forEach(s => {
+                    const times = s.times || 3;
+                    left[s.id] = {};
+                    for(let i=1; i<=times; i++) left[s.id][i] = s.slides;
+                }));
                 const sDate = new Date(startDate + 'T00:00:00');
                 const validExams = exams.filter(e => e.date && !e.archived);
                 if(validExams.length === 0) return [];
@@ -1033,16 +1040,36 @@
                         const totalDays = Math.ceil((exDate - sDate) / 86400000);
                         if(totalDays <= 0) return;
 
-                        const p1D = Math.max(1, Math.floor(totalDays * 0.45));
-                        const p2D = Math.max(1, Math.floor(totalDays * 0.35));
                         const dayIdx = Math.floor((curr - sDate) / 86400000);
 
                         ex.subjects.forEach(sub => {
                             if (sub.slides <= 0) return;
-                            let phase, remD;
-                            if (dayIdx < p1D) { phase = 1; remD = p1D - dayIdx; }
-                            else if (dayIdx < p1D + p2D) { phase = 2; remD = (p1D + p2D) - dayIdx; }
-                            else { phase = 3; remD = totalDays - dayIdx; }
+
+                            const times = sub.times || 3;
+                            const pDays = [];
+                            let remTotal = totalDays;
+
+                            if (times === 3) {
+                                pDays.push(Math.max(1, Math.floor(totalDays * 0.45)));
+                                pDays.push(Math.max(1, Math.floor(totalDays * 0.35)));
+                                pDays.push(Math.max(1, totalDays - pDays[0] - pDays[1]));
+                            } else {
+                                const base = Math.max(1, Math.floor(totalDays / times));
+                                for(let i=0; i<times-1; i++) { pDays.push(base); }
+                                pDays.push(Math.max(1, totalDays - base*(times-1)));
+                            }
+
+                            let phase = times;
+                            let remD = pDays[times-1];
+                            let acc = 0;
+                            for (let i = 0; i < times; i++) {
+                                if (dayIdx < acc + pDays[i]) {
+                                    phase = i + 1;
+                                    remD = (acc + pDays[i]) - dayIdx;
+                                    break;
+                                }
+                                acc += pDays[i];
+                            }
 
                             const key = `${dStr}_${ex.id}_${sub.id}_${phase}`;
                             const rec = records[key];
@@ -1394,8 +1421,9 @@
                                             <div className="flex gap-2 mb-2">
                                                 <div className="flex-[2]"><input value={wizSubName} onChange={e=>setWizSubName(e.target.value)} placeholder="مبحث (مثال: فصل ۱)" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white outline-none border border-slate-200 dark:border-slate-700" /></div>
                                                 <div className="flex-[1]"><input type="number" value={wizSubAmt} onChange={e=>setWizSubAmt(e.target.value)} placeholder="تعداد کل" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white text-center outline-none border border-slate-200 dark:border-slate-700" /></div>
+                                                <div className="flex-[1]"><input type="number" value={wizSubTimes} onChange={e=>setWizSubTimes(e.target.value)} placeholder="دفعات (۳)" className="w-full p-3 bg-white dark:bg-slate-800 rounded-xl text-xs font-bold dark:text-white text-center outline-none border border-slate-200 dark:border-slate-700" /></div>
                                             </div>
-                                            <button onClick={() => { const amt = parseInt(wizSubAmt); if(wizSubName && !isNaN(amt)) { setWizSubjects(prev => [...prev, { id: 's'+Date.now(), name: wizSubName, slides: amt }]); setWizSubName(''); setWizSubAmt(''); } }} className="w-full py-2 bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-400 rounded-xl font-bold text-xs hover:bg-primary-200 active:scale-95 transition-all">+ افزودن به لیست</button>
+                                            <button onClick={() => { const amt = parseInt(wizSubAmt); const t = parseInt(wizSubTimes) || 3; if(wizSubName && !isNaN(amt)) { setWizSubjects(prev => [...prev, { id: 's'+Date.now(), name: wizSubName, slides: amt, times: t }]); setWizSubName(''); setWizSubAmt(''); setWizSubTimes('3'); } }} className="w-full py-2 bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-400 rounded-xl font-bold text-xs hover:bg-primary-200 active:scale-95 transition-all">+ افزودن به لیست</button>
                                         </div>
 
                                         {wizSubjects.length > 0 && (
@@ -1656,13 +1684,15 @@
                                     <>
                                         <h3 className="text-xl font-bold mb-4 dark:text-white">افزودن مبحث</h3>
                                         <input value={val1} onChange={e => setVal1(e.target.value)} placeholder="نام مبحث (مثال: گرامر)" className="w-full p-3 mb-3 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
-                                        <input type="number" value={val2} onChange={e => setVal2(e.target.value)} placeholder="حجم کل (تست، صفحه، دقیقه)" className="w-full p-3 mb-6 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
+                                        <input type="number" value={val2} onChange={e => setVal2(e.target.value)} placeholder="حجم کل (تست، صفحه، دقیقه)" className="w-full p-3 mb-3 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
+                                        <input type="number" value={val3} onChange={e => setVal3(e.target.value)} placeholder="تعداد دفعات مرور (پیش‌فرض: ۳)" className="w-full p-3 mb-6 bg-slate-100 dark:bg-slate-700 rounded-xl dark:text-white outline-none" />
                                         <div className="flex gap-2">
                                             <button onClick={() => setModal({ open: false })} className="flex-1 py-3 bg-slate-200 dark:bg-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 active:scale-95 transition-transform">لغو</button>
                                             <button onClick={() => {
                                                 const s = parseInt(val2);
+                                                const t = parseInt(val3) || 3;
                                                 if (val1 && !isNaN(s)) {
-                                                    setExams(prev => prev.map(ex => ex.id === modal.data.exId ? { ...ex, subjects: [...ex.subjects, { id: 's' + Date.now(), name: val1, slides: s }] } : ex));
+                                                    setExams(prev => prev.map(ex => ex.id === modal.data.exId ? { ...ex, subjects: [...ex.subjects, { id: 's' + Date.now(), name: val1, slides: s, times: t }] } : ex));
                                                     setModal({ open: false });
                                                 }
                                             }} className="flex-1 py-3 bg-primary-600 text-white rounded-xl font-bold active:scale-95 transition-transform">تایید</button>
@@ -2495,7 +2525,7 @@
                                             <div className="flex items-center gap-2 shrink-0">
                                                 <button onClick={() => handleSharePlan(ex)} className="bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 p-1.5 rounded-lg active:scale-95 transition-transform" title="اشتراک گذاری الگو"><Icons.Share /></button>
                                                 <button onClick={() => setExams(p => p.map(e => e.id === ex.id ? {...e, archived: true} : e))} className="bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 p-1.5 rounded-lg active:scale-95 transition-transform" title="بایگانی کردن هدف"><Icons.Archive /></button>
-                                                <button onClick={() => {setVal1(''); setVal2(''); setModal({open:true, type:'add_subject', data:{exId:ex.id}});}} className="bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400 px-2 py-1.5 rounded-lg text-[10px] font-bold active:scale-95 transition-transform">+ زیرمبحث</button>
+                                                <button onClick={() => {setVal1(''); setVal2(''); setVal3('3'); setModal({open:true, type:'add_subject', data:{exId:ex.id}});}} className="bg-primary-100 text-primary-600 dark:bg-primary-900/50 dark:text-primary-400 px-2 py-1.5 rounded-lg text-[10px] font-bold active:scale-95 transition-transform">+ زیرمبحث</button>
                                                 <button onClick={() => setModal({open:true, type:'confirm', data:{msg:'آیا از حذف کامل این هدف و تمام زیرمباحث آن مطمئن هستید؟', fn:()=>setExams(p=>p.filter(e=>e.id!==ex.id))}})} className="text-rose-400 bg-rose-50 dark:bg-rose-900/20 p-1.5 rounded-lg active:scale-95 transition-transform"><Icons.Trash /></button>
                                             </div>
                                         </div>
@@ -2511,7 +2541,8 @@
                                                         placeholder="نام مبحث"
                                                     />
                                                     <div className="flex items-center gap-2 shrink-0">
-                                                        <input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-primary-600 dark:text-primary-400 p-1.5 outline-none" />
+                                                        <input type="number" value={s.slides} onChange={e => handleUpdateSlide(ex.id, s.id, e.target.value)} className="w-14 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-primary-600 dark:text-primary-400 p-1.5 outline-none" title="حجم مبحث" />
+                                                        <input type="number" value={s.times || 3} onChange={e => handleUpdateTimes(ex.id, s.id, e.target.value)} className="w-10 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-center text-xs font-bold text-primary-600 dark:text-primary-400 p-1.5 outline-none" title="دفعات مرور" />
                                                         <button onClick={() => setExams(p => p.map(e => e.id===ex.id ? {...e, subjects:e.subjects.filter(x=>x.id!==s.id)} : e))} className="text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/30 p-1.5 rounded-lg transition-all active:scale-95"><Icons.Trash /></button>
                                                     </div>
                                                 </div>
